@@ -2,14 +2,13 @@
 
 import { cn } from "../../lib/utils";
 import { ThreeDCard } from "./3d-card";
-import Image from "next/legacy/image";
+import Image from "next/image";
 
 interface PerspectiveCardProps {
   mode: string;
   image: string;
   description: string;
   active?: boolean;
-  character?: string;
   onSelect: (mode: string) => void;
   fov?: {
     horizontal: number;
@@ -60,7 +59,6 @@ export const PerspectiveCard = ({
   image, 
   description,
   active,
-  character,
   onSelect,
   fov,
   sensory,
@@ -79,10 +77,12 @@ export const PerspectiveCard = ({
       <div className="w-full flex flex-col p-8 bg-black/40 backdrop-blur-md relative">
         <div className="absolute top-8 right-8 w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80">
           <div className="relative w-full h-full">
-            <img 
-              src={image} 
+            <Image 
+              src={image}
               alt={`${mode} perspective`}
-              className="w-full h-full object-contain filter brightness-125 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)] transform hover:scale-110 transition-transform duration-300"
+              fill
+              sizes="(max-width: 768px) 192px, (max-width: 1024px) 256px, 320px"
+              className="object-contain filter brightness-125 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)] transform hover:scale-110 transition-transform duration-300"
             />
             <div className="absolute inset-0 bg-gradient-radial from-blue-500/10 via-transparent to-transparent mix-blend-overlay" />
           </div>
