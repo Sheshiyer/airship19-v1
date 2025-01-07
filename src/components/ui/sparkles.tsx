@@ -1,150 +1,111 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { cn } from "../../lib/utils";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
-interface ParticleConfig {
-  x: number;
-  y: number;
+interface SparkleType {
+  id: string;
+  createdAt: number;
+  color: string;
   size: number;
-  speedX: number;
-  speedY: number;
+  style: {
+    top: string;
+    left: string;
+    zIndex: number;
+  };
 }
 
-export const SparklesCore = ({
-  id,
-  background,
-  minSize,
-  maxSize,
-  particleDensity,
+const DEFAULT_COLOR = "#FFC700";
+const generateSparkle = (color: string = DEFAULT_COLOR): SparkleType => {
+  return {
+    id: Math.random().toString(36).slice(2),
+    createdAt: Date.now(),
+    color,
+    size: Math.random() * 10 + 10,
+    style: {
+      top: Math.random() * 100 + "%",
+      left: Math.random() * 100 + "%",
+      zIndex: 2,
+    },
+  };
+};
+
+interface SparklesProps extends React.HTMLAttributes<HTMLDivElement> {
+  color?: string;
+  children: React.ReactNode;
+  sparklesEnabled?: boolean;
+}
+
+export const SparklesPreview = ({
+  color = DEFAULT_COLOR,
+  children,
+  sparklesEnabled = true,
   className,
-  particleColor,
-}: {
-  id: string;
-  background?: string;
-  minSize?: number;
-  maxSize?: number;
-  particleDensity?: number;
-  className?: string;
-  particleColor?: string;
-}) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const particlesRef = useRef<ParticleConfig[]>([]);
-  const animationFrameRef = useRef<number>();
-  const mouseRef = useRef({ x: 0, y: 0 });
+  ...props
+}: SparklesProps) => {
+  const [sparkles, setSparkles] = useState<SparkleType[]>([]);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas || typeof window === "undefined") return;
+    if (!sparklesEnabled) return;
 
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const handleResize = () => {
-      if (canvas) {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        initParticles();
-      }
+    const generateSparkles = () => {
+      const now = Date.now();
+      const sparkle = generateSparkle(color);
+      const nextSparkles = [...sparkles, sparkle].filter(
+        (sp) => now - sp.createdAt < 1000
+      );
+      setSparkles(nextSparkles);
     };
 
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseRef.current = {
-        x: e.clientX,
-        y: e.clientY,
-      };
-    };
+    const intervalId = setInterval(generateSparkles, 50);
 
-    const initParticles = () => {
-      const particleCount = particleDensity || 50;
-      particlesRef.current = Array.from({ length: particleCount }, () => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        size: Math.random() * ((maxSize || 2) - (minSize || 0.5)) + (minSize || 0.5),
-        speedX: (Math.random() - 0.5) * 0.3,
-        speedY: (Math.random() - 0.5) * 0.3,
-      }));
-    };
-
-    const animate = () => {
-      if (!canvas || !ctx) return;
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      particlesRef.current.forEach((particle) => {
-        // Add slight attraction to mouse
-        const dx = mouseRef.current.x - particle.x;
-        const dy = mouseRef.current.y - particle.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        
-        if (distance < 120) {
-          particle.speedX += dx * 0.0001;
-          particle.speedY += dy * 0.0001;
-        }
-
-        // Apply speed limits
-        particle.speedX = Math.min(Math.max(particle.speedX, -0.5), 0.5);
-        particle.speedY = Math.min(Math.max(particle.speedY, -0.5), 0.5);
-
-        particle.x += particle.speedX;
-        particle.y += particle.speedY;
-
-        // Wrap around screen
-        if (particle.x < 0) particle.x = canvas.width;
-        if (particle.x > canvas.width) particle.x = 0;
-        if (particle.y < 0) particle.y = canvas.height;
-        if (particle.y > canvas.height) particle.y = 0;
-
-        // Draw particle
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fillStyle = particleColor || "#ffffff";
-        ctx.fill();
-
-        // Optional: Draw connections
-        particlesRef.current.forEach((otherParticle) => {
-          const dx = particle.x - otherParticle.x;
-          const dy = particle.y - otherParticle.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-
-          if (distance < 80) {
-            ctx.beginPath();
-            ctx.strokeStyle = `rgba(255, 255, 255, ${0.15 * (1 - distance / 80)})`;
-            ctx.lineWidth = 0.5;
-            ctx.moveTo(particle.x, particle.y);
-            ctx.lineTo(otherParticle.x, otherParticle.y);
-            ctx.stroke();
-          }
-        });
-      });
-
-      animationFrameRef.current = requestAnimationFrame(animate);
-    };
-
-    // Initialize
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    window.addEventListener("mousemove", handleMouseMove);
-    animate();
-
-    // Cleanup
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("mousemove", handleMouseMove);
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
-    };
-  }, [maxSize, minSize, particleColor, particleDensity]);
+    return () => clearInterval(intervalId);
+  }, [color, sparkles, sparklesEnabled]);
 
   return (
-    <canvas
-      ref={canvasRef}
-      id={id}
-      style={{
-        background: background || "transparent",
-      }}
-      className={cn("absolute inset-0", className)}
-    />
+    <div className={cn("relative inline-block", className)} {...props}>
+      {sparkles.map((sparkle) => (
+        <Sparkle
+          key={sparkle.id}
+          color={sparkle.color}
+          size={sparkle.size}
+          style={sparkle.style}
+        />
+      ))}
+      <div className="relative z-10">{children}</div>
+    </div>
+  );
+};
+
+interface SparkleProps {
+  size: number;
+  color: string;
+  style: React.CSSProperties;
+}
+
+const Sparkle = ({ size, color, style }: SparkleProps) => {
+  const path =
+    "M26.5 25.5C19.0043 33.3697 0 34 0 34C0 34 19.1013 35.3684 26.5 43.5C33.234 50.901 34 71 34 71C34 71 35.6597 50.7065 43.5 43.5C51.6455 36.0044 71 34 71 34C71 34 51.6947 32.5684 43.5 25.5C36.5605 19.1679 34 0 34 0C34 0 33.395 18.7498 26.5 25.5Z";
+
+  return (
+    <motion.div
+      initial={{ scale: 0 }}
+      animate={{ scale: 1 }}
+      exit={{ scale: 0 }}
+      transition={{ duration: 0.3 }}
+      style={style}
+      className="absolute pointer-events-none"
+    >
+      <svg
+        width={size}
+        height={size}
+        viewBox="0 0 68 68"
+        fill="none"
+        className="animate-spin-slow"
+      >
+        <path d={path} fill={color} transform="scale(0.66)" />
+      </svg>
+    </motion.div>
   );
 };

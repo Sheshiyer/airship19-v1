@@ -9,38 +9,22 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        display: ["var(--font-display)"],
-        body: ["var(--font-body)"],
+        'space-grotesk': ['var(--font-space-grotesk)', 'sans-serif'],
       },
-      colors: {
-        primary: {
-          50: "var(--color-primary-50)",
-          100: "var(--color-primary-100)",
-          200: "var(--color-primary-200)",
-          300: "var(--color-primary-300)",
-          400: "var(--color-primary-400)",
-          500: "var(--color-primary-500)",
-          600: "var(--color-primary-600)",
-          700: "var(--color-primary-700)",
-        },
-        perspective: {
-          wisp: "var(--color-wisp)",
-          rabbit: "var(--color-rabbit)",
-          wolf: "var(--color-wolf)",
-          pilot: "var(--color-pilot)",
-        },
-        semantic: {
-          success: "var(--color-success)",
-          warning: "var(--color-warning)",
-          error: "var(--color-error)",
-          info: "var(--color-info)",
-        },
+      padding: {
+        '18': '4.5rem',
+        '22': '5.5rem',
+        '26': '6.5rem',
+      },
+      backgroundImage: {
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "gradient-conic":
+          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       animation: {
         "meteor-effect": "meteor 5s linear infinite",
-        "text-gradient": "text-gradient 1.5s linear infinite",
-        "background-shine": "background-shine 2s linear infinite",
-        "pulse-slow": "pulse 6s infinite cubic-bezier(0.4, 0, 0.6, 1)",
+        scroll:
+          "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
       },
       keyframes: {
         meteor: {
@@ -51,26 +35,11 @@ const config: Config = {
             opacity: "0",
           },
         },
-        "text-gradient": {
+        scroll: {
           to: {
-            backgroundPosition: "200% center",
+            transform: "translate(calc(-50% - 0.5rem))",
           },
         },
-        "background-shine": {
-          from: { backgroundPosition: "0 0" },
-          to: { backgroundPosition: "-200% 0" },
-        },
-      },
-      borderRadius: {
-        card: "var(--card-radius)",
-      },
-      boxShadow: {
-        card: "var(--card-shadow)",
-      },
-      spacing: {
-        "timeline-w": "var(--timeline-width)",
-        "timeline-dot": "var(--timeline-dot-size)",
-        "timeline-space": "var(--timeline-spacing)",
       },
     },
   },

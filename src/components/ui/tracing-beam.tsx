@@ -1,57 +1,38 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { cn } from "../../lib/utils";
+import { motion, useScroll, useSpring, useTransform, HTMLMotionProps } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
-export const TracingBeam = ({
+interface TracingBeamProps extends Omit<HTMLMotionProps<"div">, "children"> {
+  children: React.ReactNode;
+}
+
+export const TracingBeam = ({ 
   children,
   className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) => {
+  ...props 
+}: TracingBeamProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  const wrapperRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
-    container: wrapperRef,
   });
 
   const contentRef = useRef<HTMLDivElement>(null);
   const [svgHeight, setSvgHeight] = useState(0);
 
   useEffect(() => {
-    const updateHeight = () => {
-      if (contentRef.current) {
-        setSvgHeight(contentRef.current.offsetHeight);
-      }
-    };
-
-    // Initial update
-    updateHeight();
-
-    // Update on resize
-    window.addEventListener('resize', updateHeight);
-    
-    // Update after content changes
-    const observer = new ResizeObserver(updateHeight);
     if (contentRef.current) {
-      observer.observe(contentRef.current);
+      setSvgHeight(contentRef.current.offsetHeight);
     }
-
-    return () => {
-      window.removeEventListener('resize', updateHeight);
-      observer.disconnect();
-    };
   }, []);
 
   const y1 = useSpring(
     useTransform(scrollYProgress, [0, 0.8], [50, svgHeight]),
     {
       stiffness: 500,
-      damping: 90,
+      damping: 90
     }
   );
 
@@ -59,89 +40,90 @@ export const TracingBeam = ({
     useTransform(scrollYProgress, [0, 1], [50, svgHeight - 200]),
     {
       stiffness: 500,
-      damping: 90,
+      damping: 90
     }
   );
 
+  const motionProps: HTMLMotionProps<"div"> = {
+    ref,
+    className: cn("relative w-full max-w-4xl mx-auto h-full", className),
+    ...props
+  };
+
   return (
-    <div ref={wrapperRef} className="relative">
-      <motion.div
-        ref={ref}
-        className={cn("relative mx-auto h-full max-w-4xl", className)}
-      >
-        <div className="absolute -left-4 top-3 md:-left-20">
+    <motion.div {...motionProps}>
+      <div className="absolute -left-20 top-3">
+        <motion.div
+          transition={{
+            duration: 0.2,
+            delay: 0.5,
+          }}
+          animate={{
+            boxShadow:
+              scrollYProgress.get() > 0
+                ? "none"
+                : "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+          }}
+          className="ml-[27px] h-4 w-4 rounded-full border border-netural-200 shadow-sm flex items-center justify-center"
+        >
           <motion.div
             transition={{
               duration: 0.2,
               delay: 0.5,
             }}
             animate={{
-              boxShadow:
-                scrollYProgress.get() > 0
-                  ? "none"
-                  : "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+              backgroundColor: scrollYProgress.get() > 0 ? "white" : "var(--primary)",
+              borderColor: scrollYProgress.get() > 0 ? "white" : "var(--primary)",
             }}
-            className="relative ml-[27px] h-4 w-4 rounded-full border border-neutral-200 shadow-sm flex items-center justify-center"
-          >
-            <motion.div
-              transition={{
-                duration: 0.2,
-                delay: 0.5,
-              }}
-              animate={{
-                backgroundColor: scrollYProgress.get() > 0 ? "white" : "#10b981",
-                borderColor: scrollYProgress.get() > 0 ? "white" : "#059669",
-              }}
-              className="h-2 w-2 rounded-full border border-neutral-300 bg-white"
-            />
-          </motion.div>
-          <svg
-            viewBox={`0 0 20 ${svgHeight}`}
-            width="20"
-            height={svgHeight}
-            className="ml-4 block"
-            aria-hidden="true"
-          >
-            <motion.path
-              d={`M 1 0V -36 l 18 24 V ${svgHeight * 0.8} l -18 24V ${svgHeight}`}
-              fill="none"
-              stroke="#9091A0"
-              strokeOpacity="0.16"
-              transition={{
-                duration: 10,
-              }}
-            />
-            <motion.path
-              d={`M 1 0V -36 l 18 24 V ${svgHeight * 0.8} l -18 24V ${svgHeight}`}
-              fill="none"
-              stroke="url(#gradient)"
-              strokeWidth="1.25"
-              className="motion-reduce:hidden"
-              transition={{
-                duration: 10,
-              }}
-            />
-            <defs>
-              <motion.linearGradient
-                id="gradient"
-                gradientUnits="userSpaceOnUse"
-                x1="0"
-                x2="0"
-                y1={y1}
-                y2={y2}
-              >
-                <stop stopColor="#18CCFC" stopOpacity="0" />
-                <stop stopColor="#18CCFC" />
-                <stop offset="0.325" stopColor="#6344F5" />
-                <stop offset="1" stopColor="#AE48FF" stopOpacity="0" />
-              </motion.linearGradient>
-            </defs>
-          </svg>
-        </div>
-        <div ref={contentRef} className="relative">
-          {children}
-        </div>
-      </motion.div>
-    </div>
+            className="h-2 w-2 rounded-full border border-neutral-300 bg-white"
+          />
+        </motion.div>
+        <svg
+          viewBox={`0 0 20 ${svgHeight}`}
+          width="20"
+          height={svgHeight}
+          className="ml-4 block"
+          aria-hidden="true"
+        >
+          <motion.path
+            d={`M 1 0V -36 l 18 24 V ${svgHeight * 0.8} l -18 24V ${svgHeight}`}
+            fill="none"
+            stroke="#9091A0"
+            strokeOpacity="0.16"
+            transition={{
+              duration: 10,
+            }}
+          />
+          <motion.path
+            d={`M 1 0V -36 l 18 24 V ${svgHeight * 0.8} l -18 24V ${svgHeight}`}
+            fill="none"
+            stroke="url(#gradient)"
+            strokeWidth="1.25"
+            className="motion-reduce:hidden"
+            transition={{
+              duration: 10,
+            }}
+          />
+          <defs>
+            <motion.linearGradient
+              id="gradient"
+              gradientUnits="userSpaceOnUse"
+              x1="0"
+              x2="0"
+              y1={y1}
+              y2={y2}
+            >
+              <stop stopColor="#18CCFC" stopOpacity="0" />
+              <stop stopColor="#18CCFC" />
+              <stop offset="0.325" stopColor="#6344F5" />
+              <stop offset="1" stopColor="#AE48FF" stopOpacity="0" />
+            </motion.linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div ref={contentRef} className="ml-16 pt-10 pb-40">
+        {children}
+      </div>
+    </motion.div>
   );
 };

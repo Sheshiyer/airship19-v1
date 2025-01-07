@@ -3,42 +3,60 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-export const TextGenerateEffect = ({ words }: { words: string }) => {
-  const [displayedText, setDisplayedText] = useState("");
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isComplete, setIsComplete] = useState(false);
+interface TextGenerateEffectProps {
+  words: string | string[];
+  className?: string;
+}
+
+export const TextGenerateEffect = ({
+  words,
+  className = "",
+}: TextGenerateEffectProps) => {
+  const [wordArray, setWordArray] = useState<string[]>(
+    typeof words === "string" ? words.split(" ") : words
+  );
+  const [completedWords, setCompletedWords] = useState<string[]>([]);
 
   useEffect(() => {
-    if (currentIndex < words.length) {
-      const timeout = setTimeout(() => {
-        setDisplayedText((prev) => prev + words[currentIndex]);
-        setCurrentIndex((prev) => prev + 1);
-      }, 30);
+    let currentIndex = 0;
+    const intervalId = setInterval(() => {
+      if (currentIndex < wordArray.length) {
+        setCompletedWords((prev) => [...prev, wordArray[currentIndex]]);
+        currentIndex++;
+      } else {
+        clearInterval(intervalId);
+      }
+    }, 80);
 
-      return () => clearTimeout(timeout);
-    } else if (!isComplete) {
-      setIsComplete(true);
-    }
-  }, [currentIndex, words, isComplete]);
+    return () => clearInterval(intervalId);
+  }, [wordArray]);
+
+  const variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+  };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="w-full"
-    >
-      <div className="text-transparent bg-clip-text bg-gradient-to-r from-neutral-100 to-neutral-400">
-        {displayedText}
-        {!isComplete && (
-          <motion.span
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
-            className="ml-1 inline-block w-1 h-6 bg-neutral-100"
-          />
-        )}
+    <div className={className}>
+      <div className="mt-4">
+        <div className="text-2xl leading-snug tracking-wide">
+          {wordArray.map((word, idx) => {
+            const isCompleted = completedWords.includes(word);
+            return (
+              <motion.span
+                key={word + idx}
+                className="dark:text-white text-black"
+                initial="hidden"
+                animate={isCompleted ? "visible" : "hidden"}
+                variants={variants}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+              >
+                {word}{" "}
+              </motion.span>
+            );
+          })}
+        </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
