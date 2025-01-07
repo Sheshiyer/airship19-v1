@@ -28,60 +28,236 @@ export default function Home() {
       mode: "wisp",
       image: "/wisp-p.png",
       description: "Navigate through dimensions with a being of pure energy",
+      fov: {
+        horizontal: 360,
+        vertical: 360,
+        peripheral: 100
+      },
+      sensory: {
+        colorPerception: {
+          spectrum: "enhanced" as const,
+          nightVision: true,
+          infrared: true,
+          ultraviolet: true
+        },
+        soundPerception: {
+          frequencyRange: [0, 100000] as [number, number],
+          echolocation: true,
+          directionality: "surround" as const
+        }
+      },
+      movement: {
+        type: "ethereal" as const,
+        speed: 100,
+        agility: 100,
+        phaseThrough: true
+      },
+      abilities: [
+        {
+          name: "Dimensional Shift",
+          description: "Phase through reality barriers",
+          cooldown: 5,
+          energyCost: 30
+        }
+      ],
+      elementalAffinity: {
+        air: 100,
+        earth: 20,
+        water: 60,
+        aether: 100
+      },
+      immersion: {
+        realityDistortion: 100,
+        timePerception: "dilated" as const,
+        dimensionalAccess: 100,
+        energySignature: "spectral" as const
+      }
     },
     {
       mode: "wolf",
       image: "/wolf-p.png",
-      description: "Experience the raw, instinctual essence of nature"    
+      description: "Experience the raw, instinctual essence of nature",
+      fov: {
+        horizontal: 270,
+        vertical: 180,
+        peripheral: 90
+      },
+      sensory: {
+        colorPerception: {
+          spectrum: "limited" as const,
+          nightVision: true,
+          infrared: false,
+          ultraviolet: false
+        },
+        soundPerception: {
+          frequencyRange: [67, 45000] as [number, number],
+          echolocation: false,
+          directionality: "surround" as const
+        }
+      },
+      movement: {
+        type: "quadrupedal" as const,
+        speed: 90,
+        agility: 85,
+        phaseThrough: false
+      },
+      abilities: [
+        {
+          name: "Pack Sense",
+          description: "Detect and communicate with nearby entities",
+          cooldown: 15,
+          energyCost: 20
+        }
+      ],
+      elementalAffinity: {
+        air: 40,
+        earth: 90,
+        water: 50,
+        aether: 30
+      },
+      immersion: {
+        realityDistortion: 30,
+        timePerception: "normal" as const,
+        dimensionalAccess: 20,
+        energySignature: "physical" as const
+      }
     },
     {
       mode: "rabbit",
       image: "/rabbit-p.png",
       description: "See the world from a perspective of constant vigilance and agility",
+      fov: {
+        horizontal: 340,
+        vertical: 180,
+        peripheral: 95
+      },
+      sensory: {
+        colorPerception: {
+          spectrum: "limited" as const,
+          nightVision: true,
+          infrared: false,
+          ultraviolet: true
+        },
+        soundPerception: {
+          frequencyRange: [100, 49000] as [number, number],
+          echolocation: false,
+          directionality: "surround" as const
+        }
+      },
+      movement: {
+        type: "quadrupedal" as const,
+        speed: 95,
+        agility: 100,
+        phaseThrough: false
+      },
+      abilities: [
+        {
+          name: "Time Hop",
+          description: "Brief moments of accelerated time perception",
+          cooldown: 10,
+          energyCost: 25
+        }
+      ],
+      elementalAffinity: {
+        air: 80,
+        earth: 60,
+        water: 40,
+        aether: 50
+      },
+      immersion: {
+        realityDistortion: 40,
+        timePerception: "compressed" as const,
+        dimensionalAccess: 30,
+        energySignature: "physical" as const
+      }
     },
     {
       mode: "pilot",
       image: "/pilot-p.png",
-      description: "Bridge the gap between different realities"
+      description: "Bridge the gap between different realities",
+      fov: {
+        horizontal: 180,
+        vertical: 120,
+        peripheral: 75
+      },
+      sensory: {
+        colorPerception: {
+          spectrum: "full" as const,
+          nightVision: false,
+          infrared: true,
+          ultraviolet: false
+        },
+        soundPerception: {
+          frequencyRange: [20, 20000] as [number, number],
+          echolocation: false,
+          directionality: "stereo" as const
+        }
+      },
+      movement: {
+        type: "bipedal" as const,
+        speed: 50,
+        agility: 60,
+        phaseThrough: false
+      },
+      abilities: [
+        {
+          name: "Reality Anchor",
+          description: "Stabilize and navigate between dimensional planes",
+          cooldown: 30,
+          energyCost: 50
+        }
+      ],
+      elementalAffinity: {
+        air: 60,
+        earth: 40,
+        water: 40,
+        aether: 80
+      },
+      immersion: {
+        realityDistortion: 70,
+        timePerception: "normal" as const,
+        dimensionalAccess: 90,
+        energySignature: "hybrid" as const
+      }
     },
   ];
 
   const features = [
     {
       title: "Multi-Dimensional Viewing",
-      description: "Transform your understanding by experiencing content through multiple perspectives simultaneously. Switch seamlessly between the ethereal Wisp, primal Wolf, vigilant Rabbit, and grounded Pilot viewpoints to uncover hidden depths in every moment.",
+      description: "Experience content through multiple viewpoints simultaneously to uncover hidden depths in every moment.",
       icon: "/file.svg",
       priority: "high" as const,
       header: "CORE FEATURE"
     },
     {
       title: "Immersive Video Experience",
-      description: "Dive deep into stories with our revolutionary video player that lets you shift perspectives in real-time. Each viewpoint offers unique insights, emotional resonance, and hidden details that create a truly multi-layered narrative experience.",
+      description: "Shift perspectives in real-time while watching videos to experience unique insights and emotional resonance.",
       icon: "/network-play.png",
       priority: "high" as const,
       header: "FLAGSHIP"
     },
     {
       title: "Adaptive Presentations",
-      description: "Create dynamic slideshows that morph based on the viewer's chosen perspective. Perfect for educational content, storytelling, and presentations that need to resonate with diverse audiences.",
+      description: "Dynamic presentations that adapt to each viewer's chosen perspective for maximum impact.",
       icon: "/solids.png",
       header: "STORYTELLING"
     },
     {
       title: "Perspective Audio",
-      description: "Experience uniquely crafted soundscapes that adapt to each perspective. From the ethereal whispers of the Wisp to the primal rhythms of the Wolf, audio becomes a gateway to deeper immersion.",
+      description: "Uniquely crafted soundscapes that adapt to each perspective for deeper immersion.",
       icon: "/rocket.png",
       header: "IMMERSION"
     },
     {
       title: "Reality Bridges",
-      description: "Navigate seamlessly between perspectives with our smart linking system. Maintain context and continuity as you explore different viewpoints, creating a coherent multi-dimensional experience.",
+      description: "Smart linking system that maintains context as you explore different viewpoints.",
       icon: "/globe.svg",
       header: "NAVIGATION"
     },
     {
       title: "Perspective Fusion",
-      description: "Unlock new ways of seeing by blending multiple perspectives. Combine the Wisp's ethereal vision with the Wolf's instincts, or merge the Rabbit's vigilance with the Pilot's overview.",
+      description: "Blend multiple perspectives to create unique combinations of abilities and insights.",
       icon: "/window.svg",
       header: "INNOVATION"
     },
@@ -89,16 +265,16 @@ export default function Home() {
 
   const timelinePoints = [
     {
-      title: "Phase 1: Awakening",
-      description: "Initial perspective shifts begin as users discover new ways of seeing.",
+      title: "Phase 1: Alpha Release",
+      description: "Currently in invite-only alpha phase, where selected users can experience the initial platform features and core perspective-shifting mechanics.",
     },
     {
-      title: "Phase 2: Convergence",
-      description: "Different viewpoints start connecting, creating a richer understanding.",
+      title: "Phase 2: VR Integration",
+      description: "Expanding into virtual reality, allowing users to physically embody different perspectives and interact with the environment in immersive 3D space.",
     },
     {
-      title: "Phase 3: Harmony",
-      description: "Achievement of a unified multi-perspective experience.",
+      title: "Phase 3: Multiplayer Island",
+      description: "Launch of the multiplayer island environment where players can interact, explore, and embark on quests together. The centerpiece will be the Oracle's temple, where players can receive mystical readings that adapt to their chosen perspective.",
     },
   ];
 
@@ -161,9 +337,9 @@ export default function Home() {
       </FloatingNav>
 
       {/* Perspectives Section */}
-      <section id="perspectives" className="py-26 px-4">
+      <section id="perspectives" className="py-26 px-4 pb-40">
         <h2 className="text-4xl font-bold text-center text-white mb-10">Choose Your Perspective</h2>
-        <div className="flex flex-wrap gap-8 justify-center max-w-7xl mx-auto">
+        <div className="flex flex-col gap-16 items-center max-w-7xl mx-auto">
           {perspectives.map((perspective) => (
             <PerspectiveCard
               key={perspective.mode}
@@ -172,7 +348,12 @@ export default function Home() {
               description={perspective.description}
               active={activePerspective === perspective.mode}
               onSelect={setActivePerspective}
-              character={perspective.character}
+              fov={perspective.fov}
+              sensory={perspective.sensory}
+              movement={perspective.movement}
+              abilities={perspective.abilities}
+              elementalAffinity={perspective.elementalAffinity}
+              immersion={perspective.immersion}
             />
           ))}
         </div>
