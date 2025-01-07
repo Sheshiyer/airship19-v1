@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Typography */
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+
+    /* Colors */
+    --color-primary-50: #f0f9ff;
+    --color-primary-100: #e0f2fe;
+    --color-primary-200: #bae6fd;
+    --color-primary-300: #7dd3fc;
+    --color-primary-400: #38bdf8;
+    --color-primary-500: #0ea5e9;
+    --color-primary-600: #0284c7;
+    --color-primary-700: #0369a1;
+
+    /* Perspective Colors */
+    --color-wisp: #8B5CF6;
+    --color-rabbit: #10B981;
+    --color-wolf: #6B7280;
+    --color-pilot: #F59E0B;
+
+    /* Semantic Colors */
+    --color-success: #10B981;
+    --color-warning: #F59E0B;
+    --color-error: #EF4444;
+    --color-info: #3B82F6;
+
+    /* Animation */
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --ease-in: cubic-bezier(0.4, 0, 1, 1);
+
+    /* Component Specific */
+    --card-radius: 1rem;
+    --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    --card-padding: 1.5rem;
+    --button-radius: 0.5rem;
+    --timeline-width: 4px;
+    --timeline-dot-size: 1rem;
+    --timeline-spacing: 2rem;
+  }
+}
+
+@layer components {
+  .perspective-card {
+    @apply relative overflow-hidden rounded-xl border border-white/10 bg-gradient-to-b from-white/5 to-white/10 shadow-2xl;
+  }
+
+  .button-primary {
+    @apply rounded-[var(--button-radius)] bg-gradient-to-r from-primary-500 to-primary-600 px-4 py-2 text-white transition-all hover:opacity-90;
+  }
+
+  .timeline-dot {
+    @apply absolute left-0 h-[var(--timeline-dot-size)] w-[var(--timeline-dot-size)] rounded-full border-2 border-primary-500 bg-white;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-primary-600;
+  }
+
+  .bg-mesh {
+    background-image: radial-gradient(at 40% 40%, rgb(139, 92, 246) 0px, transparent 50%),
+                     radial-gradient(at 90% 10%, rgb(16, 185, 129) 0px, transparent 50%),
+                     radial-gradient(at 50% 95%, rgb(107, 114, 128) 0px, transparent 50%),
+                     radial-gradient(at 20% 30%, rgb(245, 158, 11) 0px, transparent 50%);
+  }
+}
