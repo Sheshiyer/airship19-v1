@@ -2,6 +2,7 @@
 
 import { cn } from "../../lib/utils";
 import { motion } from "framer-motion";
+import Image from "next/legacy/image";
 
 interface BentoGridProps extends React.HTMLAttributes<HTMLDivElement> {
   items: {
@@ -44,11 +45,15 @@ export const BentoGrid = ({ items, className, ...props }: BentoGridProps) => {
           <div className="flex items-center gap-4 mb-4">
             {item.icon && (
               <div className="w-12 h-12 flex items-center justify-center rounded-2xl bg-gradient-to-br from-black/50 to-black/20 border border-white/10 group-hover:border-white/20 transition-colors duration-300">
-                <img 
-                  src={item.icon} 
-                  alt={item.title}
-                  className="w-6 h-6 object-contain invert opacity-70 group-hover:opacity-100 transition-opacity duration-300"
-                />
+                <div className="relative w-6 h-6">
+                  <Image 
+                    src={item.icon} 
+                    alt={item.title}
+                    layout="fill"
+                    objectFit="contain"
+                    className="invert opacity-70 group-hover:opacity-100 transition-opacity duration-300"
+                  />
+                </div>
               </div>
             )}
             <h3 className="text-xl font-bold text-neutral-100 group-hover:text-white transition-colors duration-300">

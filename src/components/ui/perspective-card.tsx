@@ -2,6 +2,7 @@
 
 import { cn } from "../../lib/utils";
 import { ThreeDCard } from "./3d-card";
+import Image from "next/legacy/image";
 
 interface PerspectiveCardProps {
   mode: string;
@@ -65,7 +66,6 @@ export const PerspectiveCard = ({
   sensory,
   movement,
   abilities,
-  elementalAffinity,
   immersion
 }: PerspectiveCardProps) => (
   <ThreeDCard
@@ -77,16 +77,22 @@ export const PerspectiveCard = ({
   >
     <div className="flex flex-col lg:flex-row h-full rounded-xl overflow-hidden bg-black/40 backdrop-blur-sm border border-white/10 transition-colors hover:border-[var(--card-primary)]/50">
       <div className="relative w-full lg:w-[70%] h-[40%] lg:h-full">
-        <img 
+        <Image 
           src={image} 
           alt={`${mode} perspective`}
-          className="object-cover w-full h-full"
+          layout="fill"
+          objectFit="cover"
+          priority
         />
         {character && (
-          <img
+          <Image
             src={character}
             alt={`${mode} character`}
-            className="absolute bottom-0 right-0 w-24 h-24 object-contain"
+            width={96}
+            height={96}
+            className="absolute bottom-0 right-0"
+            objectFit="contain"
+            priority
           />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
