@@ -69,66 +69,78 @@ export const PerspectiveCard = ({
   immersion
 }: PerspectiveCardProps) => (
   <ThreeDCard
-    className={cn(
-      "perspective-card w-full max-w-6xl min-h-[32rem] lg:min-h-[38rem] cursor-pointer transition-all duration-300",
-      active && "ring-2 ring-[var(--card-primary)]"
-    )}
+    className="perspective-card w-full max-w-6xl min-h-[32rem] lg:min-h-[38rem] cursor-pointer transform-gpu"
     onClick={() => onSelect(mode)}
   >
-    <div className="flex flex-col lg:flex-row h-full rounded-xl overflow-hidden bg-black/40 backdrop-blur-sm border border-white/10 transition-colors hover:border-[var(--card-primary)]/50">
-      <div className="relative w-full lg:w-[70%] h-[40%] lg:h-full">
-        <Image 
-          src={image} 
-          alt={`${mode} perspective`}
-          layout="fill"
-          objectFit="cover"
-          priority
-        />
-        {character && (
-          <Image
-            src={character}
-            alt={`${mode} character`}
-            width={96}
-            height={96}
-            className="absolute bottom-0 right-0"
-            objectFit="contain"
-            priority
-          />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-      </div>
-      <div className="w-full lg:w-[30%] flex-1 lg:flex-none flex flex-col p-6 bg-black/60 backdrop-blur-md">
-        <div className="mb-4">
-          <h3 className="text-xl font-bold text-white capitalize mb-2">{mode} Perspective</h3>
-          <p className="text-sm text-neutral-200">{description}</p>
+    <div className={cn(
+      "flex flex-col lg:flex-row h-full rounded-xl overflow-hidden bg-black/40 backdrop-blur-sm transition-all duration-300",
+      active ? "border-2 border-blue-500" : "hover:border-2 hover:border-blue-500/50 border border-white/10"
+    )}>
+      <div className="w-full flex flex-col p-8 bg-black/40 backdrop-blur-md relative">
+        <div className="absolute top-8 right-8 w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80">
+          <div className="relative w-full h-full">
+            <img 
+              src={image} 
+              alt={`${mode} perspective`}
+              className="w-full h-full object-contain filter brightness-125 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)] transform hover:scale-110 transition-transform duration-300"
+            />
+            <div className="absolute inset-0 bg-gradient-radial from-blue-500/10 via-transparent to-transparent mix-blend-overlay" />
+          </div>
         </div>
-        
-        <div className="flex-1 flex flex-col justify-between">
+        <div className="flex-1 flex flex-col max-w-xl relative z-10 mt-[calc(theme(spacing.48)+theme(spacing.8))] sm:mt-[calc(theme(spacing.56)+theme(spacing.8))] md:mt-[calc(theme(spacing.64)+theme(spacing.8))] lg:mt-0">
+          <div className="mb-6">
+            <h3 className="text-2xl font-bold text-white capitalize mb-3">{mode} Perspective</h3>
+            <p className="text-base text-neutral-200">{description}</p>
+          </div>
           {/* Core Stats */}
           <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-3 text-xs text-neutral-300">
+            <div className="grid grid-cols-3 gap-6 text-sm text-neutral-300">
               {fov && (
                 <div className="flex flex-col">
-                  <span className="text-blue-400 mb-1">Field of View</span>
-                  <span>{fov.horizontal}°h/{fov.vertical}°v</span>
-                  <span className="text-xs opacity-75">Peripheral: {fov.peripheral}%</span>
+                  <span className="text-blue-400 mb-2">Field of View</span>
+                  <div className="space-y-1">
+                    <div className="flex items-center justify-between">
+                      <span>Horizontal</span>
+                      <span className="text-blue-300">{fov.horizontal}°</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>Vertical</span>
+                      <span className="text-blue-300">{fov.vertical}°</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>Peripheral</span>
+                      <span className="text-blue-300">{fov.peripheral}%</span>
+                    </div>
+                  </div>
                 </div>
               )}
               {movement && (
                 <div className="flex flex-col">
-                  <span className="text-blue-400 mb-1">Movement</span>
-                  <span className="capitalize">{movement.type}</span>
-                  <span className="text-xs opacity-75">Speed: {movement.speed}/100</span>
+                  <span className="text-blue-400 mb-2">Movement</span>
+                  <div className="space-y-1">
+                    <div className="flex items-center justify-between">
+                      <span>Type</span>
+                      <span className="text-blue-300 capitalize">{movement.type}</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>Speed</span>
+                      <span className="text-blue-300">{movement.speed}/100</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>Agility</span>
+                      <span className="text-blue-300">{movement.agility}/100</span>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
 
             {/* Sensory & Abilities */}
-            <div className="border-t border-white/10 pt-3">
+            <div className="border-t border-white/10 pt-6 mt-6">
               {sensory && (
                 <div className="mb-2">
-                  <span className="text-blue-400 text-xs">Perception</span>
-                  <div className="grid grid-cols-2 gap-2 mt-1 text-xs">
+                  <span className="text-blue-400 text-sm mb-3 block">Perception</span>
+                  <div className="grid grid-cols-2 gap-3 text-sm">
                     <span>{sensory.colorPerception.spectrum} vision</span>
                     {sensory.colorPerception.nightVision && <span>Night vision</span>}
                     {sensory.colorPerception.infrared && <span>Infrared</span>}
@@ -138,10 +150,11 @@ export const PerspectiveCard = ({
               )}
               {abilities && abilities[0] && (
                 <div>
-                  <span className="text-blue-400 text-xs">Special Ability</span>
-                  <div className="mt-1">
-                    <span className="text-sm font-medium">{abilities[0].name}</span>
-                    <div className="text-xs opacity-75 mt-0.5">
+                  <span className="text-blue-400 text-sm mb-3 block">Special Ability</span>
+                  <div className="space-y-2">
+                    <span className="text-lg font-medium text-white block">{abilities[0].name}</span>
+                    <p className="text-sm text-neutral-300">{abilities[0].description}</p>
+                    <div className="text-sm text-blue-300/80 flex gap-4">
                       CD: {abilities[0].cooldown}s | Energy: {abilities[0].energyCost}
                     </div>
                   </div>

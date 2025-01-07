@@ -10,13 +10,21 @@ interface Beam {
   color: string;
 }
 
+const defaultBeams: Beam[] = [
+  { x: "20", y: "30", size: "400", color: "#4c7eff" },
+  { x: "80", y: "20", size: "300", color: "#9333ea" },
+  { x: "50", y: "50", size: "500", color: "#2563eb" },
+  { x: "10", y: "80", size: "250", color: "#7c3aed" },
+  { x: "90", y: "90", size: "350", color: "#db2777" },
+];
+
 interface BackgroundBeamsProps extends React.HTMLAttributes<HTMLDivElement> {
   beams?: Beam[];
 }
 
 export const BackgroundBeams = ({ 
   className,
-  beams = [],
+  beams = defaultBeams,
   ...props 
 }: BackgroundBeamsProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -45,7 +53,8 @@ export const BackgroundBeams = ({
       const size = parseFloat(beam.size);
 
       const gradient = ctx.createRadialGradient(x, y, 0, x, y, size);
-      gradient.addColorStop(0, `${beam.color}40`);
+      gradient.addColorStop(0, `${beam.color}50`);
+      gradient.addColorStop(0.5, `${beam.color}25`);
       gradient.addColorStop(1, `${beam.color}00`);
 
       ctx.fillStyle = gradient;
@@ -65,7 +74,7 @@ export const BackgroundBeams = ({
         x: `${(mousePosition.current.x / canvas.width) * 100}`,
         y: `${(mousePosition.current.y / canvas.height) * 100}`,
         size: "200",
-        color: "#4c7eff"
+        color: "#60a5fa"
       };
       renderBeam(mouseBeam);
 
@@ -95,7 +104,8 @@ export const BackgroundBeams = ({
   return (
     <div
       className={cn(
-        "fixed inset-0 z-0 overflow-hidden [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]",
+        "fixed inset-0 z-0 overflow-hidden [mask-image:radial-gradient(ellipse_at_center,transparent_25%,black)]",
+        "after:content-[''] after:absolute after:inset-0 after:bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0),rgba(0,0,0,0.4))]",
         className
       )}
       {...props}

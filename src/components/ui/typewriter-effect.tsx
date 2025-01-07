@@ -27,10 +27,13 @@ export const TypewriterEffect = ({
         "span",
         {
           opacity: 1,
+          y: [20, 0],
+          scale: [0.8, 1],
         },
         {
-          duration: 0.1,
+          duration: 0.2,
           delay: stagger(0.1),
+          ease: "easeOut",
         }
       );
     }

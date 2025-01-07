@@ -26,7 +26,7 @@ export default function Home() {
   const perspectives = [
     {
       mode: "wisp",
-      image: "/wisp-p.png",
+      image: "/perspectives/wisp.png",
       description: "Navigate through dimensions with a being of pure energy",
       fov: {
         horizontal: 360,
@@ -75,7 +75,7 @@ export default function Home() {
     },
     {
       mode: "wolf",
-      image: "/wolf-p.png",
+      image: "/perspectives/wolf.png",
       description: "Experience the raw, instinctual essence of nature",
       fov: {
         horizontal: 270,
@@ -124,7 +124,7 @@ export default function Home() {
     },
     {
       mode: "rabbit",
-      image: "/rabbit-p.png",
+      image: "/perspectives/rabbit.png",
       description: "See the world from a perspective of constant vigilance and agility",
       fov: {
         horizontal: 340,
@@ -173,7 +173,7 @@ export default function Home() {
     },
     {
       mode: "pilot",
-      image: "/pilot-p.png",
+      image: "/perspectives/pilot.png",
       description: "Bridge the gap between different realities",
       fov: {
         horizontal: 180,
@@ -301,7 +301,10 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-black/[0.96] antialiased text-gray-100">
+    <main className="min-h-screen bg-gradient-to-b from-black via-indigo-950/30 to-fuchsia-950/20 antialiased text-gray-100 relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.3),rgba(255,0,182,0.1))]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,rgba(0,163,255,0.1),transparent)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_100%_0%,rgba(255,0,182,0.05),transparent)]" />
       <BackgroundBeams />
       
       {/* Hero Section */}
@@ -398,7 +401,9 @@ export default function Home() {
           <button className="w-full bg-blue-500 text-white py-3 px-6 rounded-lg hover:bg-blue-600 transition-colors">
             Get Started
           </button>
-          <Meteors number={20} />
+          <div className="relative z-10">
+            <Meteors number={20} />
+          </div>
         </HoverCard>
       </section>
     </main>
