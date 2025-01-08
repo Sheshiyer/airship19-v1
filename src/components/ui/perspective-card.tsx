@@ -75,7 +75,7 @@ export const PerspectiveCard = ({
       active ? "border-2 border-blue-500" : "hover:border-2 hover:border-blue-500/50 border border-white/10"
     )}>
       <div className="w-full flex flex-col p-8 bg-black/40 backdrop-blur-md relative">
-        <div className="absolute top-8 right-8 w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80">
+        <div className="absolute top-4 right-4 sm:top-6 sm:right-6 lg:top-8 lg:right-8 w-40 h-40 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80">
           <div className="relative w-full h-full">
             <Image 
               src={image}
@@ -87,14 +87,14 @@ export const PerspectiveCard = ({
             <div className="absolute inset-0 bg-gradient-radial from-blue-500/10 via-transparent to-transparent mix-blend-overlay" />
           </div>
         </div>
-        <div className="flex-1 flex flex-col max-w-xl relative z-10 mt-[calc(theme(spacing.48)+theme(spacing.8))] sm:mt-[calc(theme(spacing.56)+theme(spacing.8))] md:mt-[calc(theme(spacing.64)+theme(spacing.8))] lg:mt-0">
+        <div className="flex-1 flex flex-col max-w-xl relative z-10 mt-[calc(theme(spacing.40)+theme(spacing.4))] sm:mt-[calc(theme(spacing.56)+theme(spacing.6))] md:mt-[calc(theme(spacing.64)+theme(spacing.6))] lg:mt-0">
           <div className="mb-6">
             <h3 className="text-2xl font-bold text-white capitalize mb-3">{mode} Perspective</h3>
             <p className="text-base text-neutral-200">{description}</p>
           </div>
           {/* Core Stats */}
           <div className="space-y-4">
-            <div className="grid grid-cols-3 gap-6 text-sm text-neutral-300">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6 text-sm text-neutral-300">
               {fov && (
                 <div className="flex flex-col">
                   <span className="text-blue-400 mb-2">Field of View</span>
