@@ -25,7 +25,8 @@ export function WalletProvider({ children }: WalletProviderProps) {
   const [chainId, setChainId] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const connect = useCallback(async (provider: string) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const connect = useCallback(async (_provider: string) => {
     try {
       setError(null);
       // TODO: Implement actual wallet connection logic based on provider

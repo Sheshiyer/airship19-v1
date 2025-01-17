@@ -16,7 +16,6 @@ export const FloatingNav = ({
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const menuItems = Children.toArray(children);
 
   useEffect(() => {
     const handleScroll = () => {

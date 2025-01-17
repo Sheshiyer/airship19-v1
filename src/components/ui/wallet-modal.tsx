@@ -60,7 +60,7 @@ export const WalletModal = ({ isOpen, onClose }: WalletModalProps) => {
     
     try {
       await connect(walletId);
-    } catch (err) {
+    } catch {
       // Error is handled by the context
     } finally {
       setIsConnecting(false);
