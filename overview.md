@@ -1,83 +1,192 @@
-import React, { useState } from 'react';
-import { Box } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+# Airship19 Technical Overview
 
-const AirshipExperience = () => {
-  const [selectedTimeline, setSelectedTimeline] = useState('chronological');
-  const [selectedPerspective, setSelectedPerspective] = useState('default');
+## System Architecture
 
-  const timelineTypes = [
-    { id: 'chronological', name: 'Chronological Timeline', description: 'Linear progression through JTrue\'s life work' },
-    { id: 'geographical', name: 'Geographical Timeline', description: 'Spatial mapping of experiences and insights' },
-    { id: 'temporal', name: 'Temporal Timeline', description: 'Non-linear exploration of interconnected moments' }
-  ];
+### Frontend Architecture
+```
+Next.js Application
+├── Public Assets
+│   ├── Character Models
+│   ├── Environment Assets
+│   └── UI Elements
+├── Components
+│   ├── Core UI Components
+│   ├── Perspective Cards
+│   ├── Authentication
+│   ├── NFT Display
+│   └── Dashboard
+├── Pages
+│   ├── Landing
+│   ├── Blog
+│   ├── Member Dashboard
+│   ├── NFT Collection
+│   └── Admin
+└── Services
+    ├── Authentication
+    ├── NFT Integration
+    ├── Blog Management
+    └── Analytics
+```
 
-  const perspectives = [
-    { id: 'default', name: 'Default Stag View', fov: 120 },
-    { id: 'elevated', name: 'Elevated Perspective', fov: 160 },
-    { id: 'ground', name: 'Ground Level', fov: 90 }
-  ];
+### Backend Services
+```
+├── Supabase
+│   ├── User Authentication
+│   ├── Profile Management
+│   ├── Blog System
+│   └── Data Storage
+├── NFTify Integration
+│   ├── Marketplace Redirect (airship19.nftify.network)
+│   └── Collection Display
+```
 
-  return (
-    <div className="space-y-6 p-6 bg-slate-50 rounded-lg">
-      <Card>
-        <CardHeader>
-          <CardTitle>Airship Interactive Experience</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white p-4 rounded-lg shadow">
-              <h3 className="text-lg font-semibold mb-4">Timeline Navigation</h3>
-              <div className="space-y-4">
-                {timelineTypes.map(timeline => (
-                  <div 
-                    key={timeline.id}
-                    className={`p-3 rounded cursor-pointer transition-colors ${
-                      selectedTimeline === timeline.id ? 'bg-blue-100' : 'bg-gray-50 hover:bg-blue-50'
-                    }`}
-                    onClick={() => setSelectedTimeline(timeline.id)}
-                  >
-                    <h4 className="font-medium">{timeline.name}</h4>
-                    <p className="text-sm text-gray-600">{timeline.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+## Core Systems
 
-            <div className="bg-white p-4 rounded-lg shadow">
-              <h3 className="text-lg font-semibold mb-4">Stag Perspective</h3>
-              <div className="space-y-4">
-                {perspectives.map(perspective => (
-                  <div 
-                    key={perspective.id}
-                    className={`p-3 rounded cursor-pointer transition-colors ${
-                      selectedPerspective === perspective.id ? 'bg-green-100' : 'bg-gray-50 hover:bg-green-50'
-                    }`}
-                    onClick={() => setSelectedPerspective(perspective.id)}
-                  >
-                    <h4 className="font-medium">{perspective.name}</h4>
-                    <p className="text-sm text-gray-600">FOV: {perspective.fov}°</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+### Authentication Flow
+1. User Registration/Login via Supabase
+2. NFTify Wallet Integration
+3. Session Management
+4. Role-based Access Control
 
-            <div className="md:col-span-2 bg-white p-4 rounded-lg shadow">
-              <h3 className="text-lg font-semibold mb-4">Interactive Elements</h3>
-              <div className="grid grid-cols-3 gap-4">
-                {['Slideshows', 'YouTube Lives', 'Audio Files', 'Podcasts', 'Media Files', 'User Uploads'].map(item => (
-                  <div key={item} className="flex items-center justify-center p-4 bg-gray-50 rounded">
-                    <Box className="mr-2" size={20} />
-                    <span className="text-sm">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  );
-};
+### NFT System
+1. NFTify Platform Integration
+2. Collection Setup & Management
+3. Metadata Standards
+4. Marketplace Display Integration
+5. Shard Collection Mechanism
 
-export default AirshipExperience;
+### NFTify Integration
+1. Marketplace Redirect System
+2. Collection Display
+3. NFT Preview Cards
+4. Transaction Tracking
+5. Owner Verification
+
+### Content Management
+1. Custom Blog Admin Interface
+2. Article CRUD Operations
+3. Media Asset Management
+4. SEO Management
+5. Publishing System
+
+## Data Models
+
+### User Profile
+```typescript
+interface UserProfile {
+  id: string;
+  email: string;
+  wallet_address: string;
+  perspectives: Perspective[];
+  shards: Shard[];
+  achievements: Achievement[];
+  witness_balance: number;
+  created_at: Date;
+  updated_at: Date;
+}
+```
+
+### Perspective NFT
+```typescript
+interface PerspectiveNFT {
+  token_id: string;
+  perspective_type: AnimalType;
+  attributes: PerspectiveAttributes;
+  rarity: RarityLevel;
+  witness_required: number;
+  shard_count: number;
+  owner: string;
+  metadata_uri: string;
+}
+```
+
+### Shard
+```typescript
+interface Shard {
+  id: string;
+  perspective_type: AnimalType;
+  owner: string;
+  acquired_date: Date;
+  raffle_id?: string;
+  transaction_id?: string;
+}
+```
+
+### Blog Post
+```typescript
+interface BlogPost {
+  id: string;
+  title: string;
+  content: string;
+  author: string;
+  tags: string[];
+  publish_date: Date;
+  status: 'draft' | 'published';
+  featured_image: string;
+}
+```
+
+## Integration Points
+
+### External Services
+- Supabase: Authentication, Database & Blog
+- NFTify: NFT Marketplace Platform
+
+### Internal Systems
+- Perspective Management System
+- Witness Token Economy
+- Shard Collection Tracking
+- Achievement System
+- Community Features
+
+## Security Considerations
+
+### Authentication
+- Multi-factor Authentication
+- Wallet Signature Verification
+- Session Management
+- Rate Limiting
+
+### Data Protection
+- End-to-end Encryption
+- Data Backup
+- GDPR Compliance
+- Privacy Controls
+
+### NFT Security
+- Owner Verification
+- Transaction Validation
+- Access Controls
+- Emergency Procedures
+
+## Performance Optimization
+
+### Frontend
+- Static Site Generation
+- Image Optimization
+- Code Splitting
+- Lazy Loading
+- Caching Strategies
+
+### Backend
+- Database Indexing
+- Query Optimization
+- Connection Pooling
+- Rate Limiting
+- Load Balancing
+
+## Monitoring & Analytics
+
+### System Metrics
+- Performance Monitoring
+- Error Tracking
+- User Analytics
+- NFT Transactions
+- Blog Performance
+
+### Business Metrics
+- User Engagement
+- NFT Sales
+- Witness Economy
+- Content Performance
+- Community Growth
