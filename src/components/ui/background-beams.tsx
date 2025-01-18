@@ -104,7 +104,7 @@ export const BackgroundBeams = ({
   return (
     <div
       className={cn(
-        "fixed inset-0 z-0 overflow-hidden [mask-image:radial-gradient(ellipse_at_center,transparent_25%,black)]",
+        "fixed inset-0 -z-10 overflow-hidden pointer-events-none [mask-image:radial-gradient(ellipse_at_center,transparent_25%,black)]",
         "after:content-[''] after:absolute after:inset-0 after:bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0),rgba(0,0,0,0.4))]",
         className
       )}

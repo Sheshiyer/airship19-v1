@@ -3,9 +3,31 @@
 ## Phase 1: Core Platform Development
 
 ### Authentication & User Management
-- [ ] Implement Supabase authentication
-- [ ] Create user profile system
-- [ ] Set up role-based access control
+- [ ] Set up Supabase Database Schema
+  - [ ] Create auth.user_role ENUM type ('admin', 'moderator', 'user')
+  - [ ] Create auth.user_roles table for role management
+  - [ ] Create public.user_profiles table for user info
+  - [ ] Set up RLS policies for both tables
+
+- [ ] Configure Database Triggers and Functions
+  - [ ] Create handle_new_user() function for auto role/profile creation
+  - [ ] Set up on_auth_user_created trigger for new signups
+  - [ ] Create update_updated_at_column() function
+  - [ ] Add triggers for updated_at timestamps
+
+- [ ] Frontend Integration
+  - [ ] Update useRBAC hook to fetch roles from user_roles table
+  - [ ] Modify AuthContext to handle role-based signups
+  - [ ] Update protected routes to use role checks
+  - [ ] Add role-based UI elements in dashboard
+
+- [ ] Testing and Documentation
+  - [ ] Create admin user setup script
+  - [ ] Test role-based access flows
+  - [ ] Verify RLS policies
+  - [ ] Document auth setup and role management
+  - [ ] Add error handling for role-related operations
+
 - [ ] Integrate NFTify wallet connection
 - [ ] Add session management
 

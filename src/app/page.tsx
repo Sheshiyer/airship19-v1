@@ -15,27 +15,25 @@ import { CommunityShowcase } from "../components/ui/community-showcase";
 import { useState, useCallback } from "react";
 import Image from "next/image";
 import { cn } from "../lib/utils";
-import { AuthModal } from "../components/ui/auth-modal";
 import { WalletModal } from "../components/ui/wallet-modal";
 import { WalletStatus } from "../components/ui/wallet-status";
 import { useWallet } from "../context/wallet-context";
 import { Footer } from "../components/ui/footer";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [activePerspective, setActivePerspective] = useState("wisp");
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const [authModalMode, setAuthModalMode] = useState<"login" | "signup">("login");
   const [isWalletModalOpen, setIsWalletModalOpen] = useState(false);
   const { isConnected } = useWallet();
+  const router = useRouter();
 
-  const handleOpenAuthModal = useCallback((mode: "login" | "signup" | "wallet") => {
+  const handleAuth = useCallback((mode: "login" | "signup" | "wallet") => {
     if (mode === "wallet") {
       setIsWalletModalOpen(true);
     } else {
-      setAuthModalMode(mode);
-      setIsAuthModalOpen(true);
+      router.push("/signin");
     }
-  }, []);
+  }, [router]);
 
   const mainNavItems = [
     { id: "home", label: "Home" },
@@ -337,7 +335,8 @@ export default function Home() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,rgba(0,163,255,0.1),transparent)]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_100%_0%,rgba(255,0,182,0.05),transparent)]" />
       <BackgroundBeams />
-      
+
+
       {/* Hero Section */}
       <section id="home" className="h-screen flex flex-col items-center justify-center relative overflow-hidden">
         <div className="flex flex-col items-center z-10">
@@ -403,91 +402,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Navigation */}
-      <FloatingNav>
-        {/* Main Navigation */}
-        <div className="flex items-center gap-8">
-          {mainNavItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => scrollToSection(item.id)}
-              aria-label={`Navigate to ${item.label} section`}
-              role="menuitem"
-              className="text-sm font-space-grotesk font-medium text-neutral-300 hover:text-white transition-colors relative group"
-            >
-              {item.label}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300" />
-            </button>
-          ))}
-        </div>
-
-        {/* Action Navigation */}
-        <div className="flex items-center gap-4 ml-8 pl-8 border-l border-white/10">
-          {actionNavItems.map((item) => {
-            if (item.isAuth) {
-              if (item.id === "connect-wallet" && isConnected) {
-                return <WalletStatus key={item.id} />;
-              }
-              
-              if (item.id === "signin" && isConnected) {
-                return null;
-              }
-
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => item.id === "connect-wallet" ? setIsWalletModalOpen(true) : handleOpenAuthModal("login")}
-                  aria-label={item.label}
-                  role="menuitem"
-                  className={cn(
-                    "text-sm font-space-grotesk font-medium transition-colors flex items-center gap-2 px-4 py-1.5 rounded-lg",
-                    item.isPrimary
-                      ? "bg-blue-500 text-white hover:bg-blue-600"
-                      : "text-neutral-300 hover:text-white border border-white/10 hover:border-white/20"
-                  )}
-                >
-                  {item.label}
-                  {item.isPrimary && (
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                    </svg>
-                  )}
-                </button>
-              );
-            }
-            
-            if (item.href) {
-              return (
-                <a
-                  key={item.id}
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Visit ${item.label} (opens in new tab)`}
-                  className="text-sm font-space-grotesk font-medium text-neutral-300 hover:text-white transition-colors relative group"
-                >
-                  {item.label}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300" />
-                </a>
-              );
-            }
-            
-            return (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                aria-label={`Navigate to ${item.label} section`}
-                role="menuitem"
-                className="text-sm font-space-grotesk font-medium text-neutral-300 hover:text-white transition-colors relative group"
-              >
-                {item.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300" />
-              </button>
-            );
-          })}
-        </div>
-      </FloatingNav>
 
       {/* Perspectives Section */}
       <section id="perspectives" className="py-26 pb-40">
@@ -673,14 +587,7 @@ export default function Home() {
           }
         ]}
       />
-
-      {/* Auth Modal */}
-      <AuthModal
-        isOpen={isAuthModalOpen}
-        onClose={() => setIsAuthModalOpen(false)}
-        initialMode={authModalMode}
-      />
-
+      
       {/* Wallet Modal */}
       <WalletModal
         isOpen={isWalletModalOpen}
