@@ -7,6 +7,11 @@ import { FloatingNav } from '../ui/floating-nav'
 export function NavWrapper() {
   const pathname = usePathname()
   const isHomePage = pathname === '/'
+  const isDashboardPage = pathname.startsWith('/dashboard')
+
+  if (isDashboardPage) {
+    return null
+  }
 
   return isHomePage ? (
     <FloatingNav>

@@ -3,6 +3,7 @@
 import { createClient } from '@/lib/supabase'
 import { User } from '@supabase/supabase-js'
 import { createContext, useContext, useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 interface AuthContextType {
   user: User | null
@@ -16,71 +17,31 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(null)
-  const [loading, setLoading] = useState(true)
+  // Mock user for development
+  const [user] = useState<User>({
+    id: 'dev-user',
+    email: 'dev@example.com',
+    created_at: new Date().toISOString(),
+    app_metadata: {},
+    user_metadata: {},
+    aud: 'authenticated',
+    role: 'authenticated'
+  } as User)
+  const [loading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const supabase = createClient()
+  const router = useRouter()
 
-  useEffect(() => {
-    // Check active sessions and sets the user
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null)
-      setLoading(false)
-    })
-
-    // Listen for changes in auth state
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null)
-      setLoading(false)
-    })
-
-    return () => subscription.unsubscribe()
-  }, [])
-
+  // Development versions of auth functions
   const signIn = async (email: string, password: string): Promise<boolean> => {
-    try {
-      setError(null)
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      })
-      if (error) throw error
-      return true
-    } catch (error) {
-      setError(error instanceof Error ? error.message : 'An error occurred')
-      return false
-    }
+    return true
   }
 
-  const signUp = async (email: string, password: string) => {
-    try {
-      setError(null)
-      const { error: signUpError, data } = await supabase.auth.signUp({
-        email,
-        password,
-      })
-
-      if (signUpError) throw signUpError
-
-      // Profile is automatically created by the database trigger
-      return true
-    } catch (error) {
-      setError(error instanceof Error ? error.message : 'An error occurred')
-      return false
-    }
+  const signUp = async (email: string, password: string): Promise<boolean> => {
+    return true
   }
 
   const signOut = async () => {
-    try {
-      setError(null)
-      const { error } = await supabase.auth.signOut()
-      if (error) throw error
-      window.location.href = '/' // Redirect to home page after sign out
-    } catch (error) {
-      setError(error instanceof Error ? error.message : 'An error occurred')
-    }
+    router.push('/')
   }
 
   return (

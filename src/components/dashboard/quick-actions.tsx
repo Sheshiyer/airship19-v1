@@ -1,6 +1,11 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
+import { useWitnessSystem } from '@/hooks/useWitnessSystem'
+import { routes } from '@/lib/routes'
+import Link from 'next/link'
 
 interface QuickAction {
   id: string
@@ -10,7 +15,11 @@ interface QuickAction {
   color: string
 }
 
-const quickActions: QuickAction[] = [
+export function QuickActions() {
+  const router = useRouter()
+  const { sendTokens } = useWitnessSystem()
+
+  const quickActions: QuickAction[] = [
   {
     id: 'new-post',
     label: 'Create Post',
@@ -20,7 +29,9 @@ const quickActions: QuickAction[] = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
       </svg>
     ),
-    onClick: () => console.log('Create post clicked')
+    onClick: () => {
+      window.location.href = routes.createPost
+    }
   },
   {
     id: 'upload',
@@ -31,7 +42,27 @@ const quickActions: QuickAction[] = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
       </svg>
     ),
-    onClick: () => console.log('Upload clicked')
+    onClick: () => {
+      // Open file input dialog
+      const input = document.createElement('input')
+      input.type = 'file'
+      input.accept = 'image/*,video/*'
+      input.onchange = async (e) => {
+        const file = (e.target as HTMLInputElement).files?.[0]
+        if (file) {
+          toast.promise(
+            // Replace with your file upload logic
+            new Promise((resolve) => setTimeout(resolve, 2000)),
+            {
+              loading: 'Uploading file...',
+              success: 'File uploaded successfully!',
+              error: 'Failed to upload file'
+            }
+          )
+        }
+      }
+      input.click()
+    }
   },
   {
     id: 'invite',
@@ -42,7 +73,22 @@ const quickActions: QuickAction[] = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
       </svg>
     ),
-    onClick: () => console.log('Invite clicked')
+    onClick: async () => {
+      const email = prompt('Enter email address to invite:')
+      if (email) {
+        try {
+          // Send invitation tokens
+          await sendTokens({
+            recipientEmail: email,
+            amount: 10,
+            message: 'Welcome to Airship! Here are some tokens to get you started.'
+          })
+          toast.success('Invitation sent successfully!')
+        } catch (error) {
+          toast.error('Failed to send invitation')
+        }
+      }
+    }
   },
   {
     id: 'settings',
@@ -54,11 +100,12 @@ const quickActions: QuickAction[] = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
       </svg>
     ),
-    onClick: () => console.log('Settings clicked')
+    onClick: () => {
+      window.location.href = routes.settings
+    }
   }
 ]
 
-export function QuickActions() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {quickActions.map((action, index) => (

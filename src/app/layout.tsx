@@ -35,7 +35,7 @@ export default function RootLayout({
         <AuthProvider>
           <WalletProvider>
             <NavWrapper />
-            <main id="main-content" tabIndex={-1} className="pt-16">
+            <main id="main-content" tabIndex={-1}>
               {children}
             </main>
           </WalletProvider>

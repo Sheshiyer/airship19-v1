@@ -71,20 +71,7 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Font optimization */
-@font-face {
-  font-family: 'Space Grotesk';
-  font-style: normal;
-  font-weight: 400 700;
-  font-display: swap;
-  src: url('/fonts/SpaceGrotesk-Variable.woff2') format('woff2');
-}
-
 /* Utility classes */
-.font-space-grotesk {
-  font-family: 'Space Grotesk', system-ui, sans-serif;
-}
-
 /* Animation classes */
 .animate-glow {
   animation: glow 2s ease-in-out infinite alternate;

@@ -1,52 +1,9 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useActivity, Activity } from '@/hooks/useActivity'
 
-interface Activity {
-  id: string
-  type: 'post' | 'comment' | 'like' | 'follow'
-  user: {
-    name: string
-    avatar: string
-  }
-  target?: string
-  timestamp: string
-}
-
-const activities: Activity[] = [
-  {
-    id: '1',
-    type: 'post',
-    user: {
-      name: 'John Doe',
-      avatar: 'JD'
-    },
-    target: 'Getting Started with Web3',
-    timestamp: '2 hours ago'
-  },
-  {
-    id: '2',
-    type: 'comment',
-    user: {
-      name: 'Alice Smith',
-      avatar: 'AS'
-    },
-    target: 'Understanding NFTs',
-    timestamp: '3 hours ago'
-  },
-  {
-    id: '3',
-    type: 'like',
-    user: {
-      name: 'Bob Johnson',
-      avatar: 'BJ'
-    },
-    target: 'The Future of DeFi',
-    timestamp: '5 hours ago'
-  }
-]
-
-const getActivityIcon = (type: Activity['type']) => {
+const getActivityIcon = (type: string) => {
   switch (type) {
     case 'post':
       return (
@@ -76,24 +33,58 @@ const getActivityIcon = (type: Activity['type']) => {
 }
 
 const getActivityMessage = (activity: Activity) => {
+  const target = activity.target ? ` "${activity.target}"` : ''
   switch (activity.type) {
-    case 'post':
-      return `created a new post "${activity.target}"`
-    case 'comment':
-      return `commented on "${activity.target}"`
+    case 'post_create':
+      return `created a new post${target}`
+    case 'comment_create':
+      return `commented on${target}`
     case 'like':
-      return `liked "${activity.target}"`
+      return `liked${target}`
     case 'follow':
-      return `started following you`
+      return `started following${target}`
+    case 'token_send':
+      return `sent tokens${target ? ` to${target}` : ''}`
+    case 'perspective_unlock':
+      return `unlocked a new perspective${target}`
+    case 'raffle_enter':
+      return `entered a raffle${target}`
+    default:
+      return activity.type.replace(/_/g, ' ')
   }
 }
 
 export function ActivityFeed() {
+  const { activities, loading, error } = useActivity()
+
+  if (error) {
+    return (
+      <div className="bg-black/80 border border-white/10 rounded-xl p-6 backdrop-blur-xl">
+        <p className="text-red-400">Error loading activities</p>
+      </div>
+    )
+  }
+
   return (
     <div className="bg-black/80 border border-white/10 rounded-xl p-6 backdrop-blur-xl">
       <h2 className="text-lg font-semibold text-white mb-4">Recent Activity</h2>
       <div className="space-y-4">
-        {activities.map((activity, index) => (
+        {loading ? 
+          // Loading skeleton
+          Array.from({ length: 3 }).map((_, index) => (
+            <div
+              key={`skeleton-${index}`}
+              className="flex items-start gap-4 p-3 rounded-lg animate-pulse"
+            >
+              <div className="w-8 h-8 rounded-full bg-white/5" />
+              <div className="flex-1">
+                <div className="h-4 w-2/3 bg-white/5 rounded mb-2" />
+                <div className="h-3 w-1/2 bg-white/5 rounded" />
+              </div>
+            </div>
+          )) : activities.length === 0 ? 
+          <p className="text-neutral-400 text-center py-4">No recent activity</p>
+          : activities.map((activity: Activity, index: number) => (
           <motion.div
             key={activity.id}
             initial={{ opacity: 0, y: 20 }}

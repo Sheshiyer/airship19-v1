@@ -56,7 +56,27 @@ VALUES
   ('00000000-0000-0000-0000-000000000002', 500),
   ('00000000-0000-0000-0000-000000000003', 100);
 
--- Create some unlocked perspectives
+-- Create animal perspectives with their types
+INSERT INTO public.animal_perspectives (name, description, image_url, type) VALUES
+-- Primary Perspectives
+('Rabbit', 'Begin your journey with swift navigation and intuitive resource gathering. Learn to move through digital spaces with agility and adaptability.', '/perspectives/rabbit.png', 'Primary'),
+('Wolf', 'Start as a strategic hunter, developing pack coordination and territorial awareness in the digital realm.', '/perspectives/wolf.png', 'Primary'),
+('Stag', 'Embrace nobility and leadership, learning to guide others through digital landscapes with grace and wisdom.', '/perspectives/stag.png', 'Primary'),
+('Doe', 'Master the art of gentle awareness and nurturing connections in the digital ecosystem.', '/perspectives/doe.png', 'Primary'),
+
+-- Advanced Perspectives
+('Fox', 'Develop cunning strategies and masterful adaptation skills in complex digital environments.', '/perspectives/fox.png', 'Advanced'),
+('Bear', 'Harness powerful presence and protective abilities while maintaining balance in the digital realm.', '/perspectives/bear.png', 'Advanced'),
+('Boar', 'Channel determination and breakthrough power to overcome digital obstacles and forge new paths.', '/perspectives/boar.png', 'Advanced'),
+('Sheep', 'Cultivate community harmony and collective wisdom in digital spaces.', '/perspectives/sheep.png', 'Advanced'),
+
+-- Master Perspectives
+('Goat', 'Achieve supreme adaptability and mastery of digital elevation, conquering any technical terrain.', '/perspectives/goat.png', 'Master'),
+('Lion', 'Command sovereign authority and leadership in the digital kingdom with noble purpose.', '/perspectives/lion.png', 'Master'),
+('Elephant', 'Embody ancient wisdom and unshakeable memory in the digital consciousness.', '/perspectives/elephant.png', 'Master'),
+('Cow', 'Manifest abundance and nurturing sustenance throughout the digital ecosystem.', '/perspectives/cow.png', 'Master');
+
+-- Create some unlocked perspectives for admin
 INSERT INTO public.user_perspectives (user_id, perspective_id)
 SELECT 
   '00000000-0000-0000-0000-000000000001',

@@ -1,13 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { useAuth } from "@/context/auth-context";
 import { useRBAC } from "@/hooks/useRBAC";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { BackgroundBeams } from "@/components/ui/background-beams";
 import { FloatingNav } from "@/components/ui/floating-nav";
 import { cn } from "@/lib/utils";
 
@@ -35,13 +34,6 @@ export default function SignIn() {
     }
   };
 
-  // Watch for role loading completion after successful sign in
-  useEffect(() => {
-    if (!roleLoading && !authLoading) {
-      router.push(isAdmin ? "/dashboard/admin" : "/dashboard/user");
-    }
-  }, [roleLoading, isAdmin, router, authLoading, signIn]);
-
   return (
     <main className="min-h-screen bg-gradient-to-b from-black via-indigo-950/30 to-fuchsia-950/20 antialiased text-gray-100 relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
@@ -49,7 +41,6 @@ export default function SignIn() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,rgba(0,163,255,0.1),transparent)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_100%_0%,rgba(255,0,182,0.05),transparent)]" />
       </div>
-      <BackgroundBeams />
 
       <div className="min-h-screen flex flex-col items-center justify-center relative z-10">
         {/* Sign In Card */}

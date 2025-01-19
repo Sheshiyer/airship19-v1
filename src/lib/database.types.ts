@@ -6,6 +6,16 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[]
 
+export interface Post {
+  id: string
+  title: string
+  content: string
+  status: 'draft' | 'published'
+  created_at: string
+  updated_at: string
+  user_id: string
+}
+
 export type Database = {
   graphql_public: {
     Tables: {
@@ -34,6 +44,44 @@ export type Database = {
   }
   public: {
     Tables: {
+      posts: {
+        Row: {
+          id: string
+          title: string
+          content: string
+          status: 'draft' | 'published'
+          created_at: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          title: string
+          content: string
+          status: 'draft' | 'published'
+          created_at?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Update: {
+          id?: string
+          title?: string
+          content?: string
+          status?: 'draft' | 'published'
+          created_at?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "posts_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       activity_logs: {
         Row: {
           action: string
@@ -333,4 +381,3 @@ export type CompositeTypes<
   : PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"]
     ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never
-
