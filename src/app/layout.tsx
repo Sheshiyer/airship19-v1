@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
 import { WalletProvider } from "../context/wallet-context";
+import { AuthProvider } from "../context/auth-context";
+import { NavWrapper } from "@/components/navigation/nav-wrapper";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({ 
@@ -30,11 +32,14 @@ export default function RootLayout({
           Skip to main content
         </a>
 
-        <WalletProvider>
-          <main id="main-content" tabIndex={-1}>
-            {children}
-          </main>
-        </WalletProvider>
+        <AuthProvider>
+          <WalletProvider>
+            <NavWrapper />
+            <main id="main-content" tabIndex={-1}>
+              {children}
+            </main>
+          </WalletProvider>
+        </AuthProvider>
 
         {/* Keyboard navigation script */}
         <script

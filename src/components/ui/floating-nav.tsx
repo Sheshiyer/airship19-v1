@@ -2,7 +2,7 @@
 
 import { cn } from "../../lib/utils";
 import { motion, HTMLMotionProps } from "framer-motion";
-import { useEffect, useState, Children } from "react";
+import { useEffect, useState } from "react";
 
 interface FloatingNavProps extends Omit<HTMLMotionProps<"div">, "children"> {
   children: React.ReactNode | React.ReactNode[];
@@ -15,7 +15,6 @@ export const FloatingNav = ({
 }: FloatingNavProps) => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,8 +51,11 @@ export const FloatingNav = ({
     >
       <div className="relative">
         <div className="absolute inset-0 bg-black/10 rounded-full blur-xl" />
-        <nav aria-label="Primary navigation" className="relative bg-black/40 backdrop-blur-sm border border-white/10 rounded-full px-4 sm:px-6 md:px-8 py-3 sm:py-4 shadow-lg">
-          <div className="flex items-center justify-between">
+        <nav 
+          aria-label="Primary navigation" 
+          className="relative bg-black/40 backdrop-blur-sm border border-white/10 rounded-full px-4 sm:px-6 md:px-8 py-3 sm:py-4 shadow-lg"
+        >
+          <div className="flex items-center justify-between relative">
             <div className="flex items-center gap-4 sm:gap-8">
               <motion.span 
                 role="heading"
@@ -82,94 +84,11 @@ export const FloatingNav = ({
               {Array.isArray(children) ? children[1] : null}
             </div>
 
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-expanded={isMobileMenuOpen}
-              aria-controls="mobile-menu"
-              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-              className="md:hidden p-2 text-white hover:text-blue-500 transition-colors"
-            >
-              <motion.div
-                animate={isMobileMenuOpen ? "open" : "closed"}
-                className="w-6 h-5 flex flex-col justify-between"
-              >
-                <motion.span
-                  variants={{
-                    closed: { rotate: 0, y: 0 },
-                    open: { rotate: 45, y: 9 },
-                  }}
-                  className="w-full h-0.5 bg-current transform origin-left transition-transform"
-                />
-                <motion.span
-                  variants={{
-                    closed: { opacity: 1 },
-                    open: { opacity: 0 },
-                  }}
-                  className="w-full h-0.5 bg-current"
-                />
-                <motion.span
-                  variants={{
-                    closed: { rotate: 0, y: 0 },
-                    open: { rotate: -45, y: -9 },
-                  }}
-                  className="w-full h-0.5 bg-current transform origin-left transition-transform"
-                />
-              </motion.div>
-            </button>
-          </div>
-
-          {/* Mobile Menu Overlay */}
-          <motion.div
-            id="mobile-menu"
-            role="menu"
-            aria-label="Mobile navigation menu"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{
-              opacity: isMobileMenuOpen ? 1 : 0,
-              y: isMobileMenuOpen ? 0 : -20,
-              display: isMobileMenuOpen ? "flex" : "none",
-            }}
-            transition={{ duration: 0.2 }}
-            className="absolute top-full left-0 right-0 mt-4 bg-black/80 backdrop-blur-lg rounded-2xl border border-white/10 max-h-[80vh] overflow-y-auto overflow-x-hidden"
-          >
-            <div className="w-full py-4 px-6 flex flex-col gap-6 min-w-0">
-              {/* Main Navigation Items */}
-              <div className="flex flex-col gap-4">
-                {Array.isArray(children) && Children.toArray(children[0]).map((item, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="w-full [&>*]:w-full [&>*]:flex [&>*]:justify-center [&>*]:items-center"
-                  >
-                    {item}
-                  </motion.div>
-                ))}
-              </div>
-
-              {/* Action Items */}
-              {Array.isArray(children) && children[1] && (
-                <>
-                  <div className="h-px bg-white/10" />
-                  <div className="flex flex-col gap-4">
-                    {Children.toArray(children[1]).map((item, index) => (
-                      <motion.div
-                        key={index}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: (index + 6) * 0.1 }}
-                        className="w-full [&>*]:w-full [&>*]:flex [&>*]:justify-center [&>*]:items-center"
-                      >
-                        {item}
-                      </motion.div>
-                    ))}
-                  </div>
-                </>
-              )}
+            {/* Mobile Menu Container */}
+            <div className="md:hidden relative">
+              {Array.isArray(children) ? children : null}
             </div>
-          </motion.div>
+          </div>
         </nav>
       </div>
     </motion.div>
