@@ -20,23 +20,80 @@
 - [x] Integrate NFTlfy marketplace purchase button
 - [ ] Add loading states and error handling
 
-## 2. Witness Token System
+## 2. Spiritual DNA & Elemental Witness System
 
-### Token Management
-- [x] Create token balance display component
-- [ ] Implement token transaction history view
-- [x] Design token animation effects for transactions
+### Biorhythm Integration
+- [ ] Create biorhythm visualization component
+  - [ ] Physical cycle tracker (23-day)
+  - [ ] Emotional cycle display (28-day)
+  - [ ] Intellectual cycle monitor (33-day)
+- [ ] Implement power fluctuation display
+  - [ ] Current cycle positions
+  - [ ] Peak/trough predictions
+  - [ ] Combined influence calculator
 
-### User Interaction
-- [x] Build email-based user search/lookup
-- [x] Create token gifting interface
-- [x] Implement email validation and user verification
-- [x] Add confirmation dialogs for token transfers
-- [x] Create transaction success/failure notifications
+### Zodiacal & Celestial Features
+- [ ] Build celestial event tracker
+  - [ ] Moon phase monitor
+  - [ ] Eclipse prediction system
+  - [ ] Seasonal transition tracker
+- [ ] Create zodiacal power interface
+  - [ ] Sign-specific trait display
+  - [ ] Element affinity bonuses
+  - [ ] Transit power amplifications
 
-## 3. Raffle System
+### Human Design & Gene Keys
+- [ ] Implement HD profile display
+  - [ ] Gate activation tracker
+  - [ ] Authority type indicator
+  - [ ] Profile characteristics
+- [ ] Create Gene Key progression
+  - [ ] Shadow state tracking
+  - [ ] Gift activation display
+  - [ ] Siddhi achievement monitor
 
-### Core Raffle Features
+### Divination Integration
+- [ ] Build Tarot interface
+  - [ ] Daily draw system
+  - [ ] Major Arcana power-ups
+  - [ ] Special spread windows
+- [ ] Create I Ching consultation
+  - [ ] Hexagram display
+  - [ ] Evolution path guidance
+  - [ ] Changing lines tracker
+
+### Ancestral Memory System
+- [ ] Design memory activation interface
+  - [ ] Available memories display
+  - [ ] Activation requirements
+  - [ ] Historical significance
+- [ ] Create power amplification tracker
+  - [ ] Current amplifications
+  - [ ] Upcoming opportunities
+  - [ ] Resonance combinations
+
+## 3. Living Shard System
+
+### Dynamic Trait Evolution
+- [ ] Create trait evolution interface
+  - [ ] Usage pattern analytics
+  - [ ] Specialization paths
+  - [ ] History timeline
+  - [ ] Power level tracking
+- [ ] Build DNA splicing workshop
+  - [ ] Compatibility analyzer
+  - [ ] Hybrid preview system
+  - [ ] Evolution simulator
+- [ ] Implement environmental imprint
+  - [ ] Environment detection
+  - [ ] Adaptation tracking
+  - [ ] Bonus calculation
+- [ ] Create perspective resonance
+  - [ ] Nearby perspective scanner
+  - [ ] Synergy calculator
+  - [ ] Group ability display
+
+### Raffle Features
 - [x] Design raffle entry interface
 - [x] Create odds calculator component
 - [x] Implement countdown timer to next raffle

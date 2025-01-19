@@ -44,6 +44,42 @@
 - [ ] Set up NFT metadata structure
 - [ ] Implement marketplace redirect system
 - [ ] Create NFT preview components
+- [ ] Implement dynamic URI updates for evolution
+- [ ] Set up soulbound achievement tokens
+- [ ] Create smart contracts for:
+  - [ ] Base Perspective NFTs
+  - [ ] Shard Collection
+  - [ ] Evolution Management
+
+### Elemental Witness & Spiritual DNA System
+- [ ] Create Enhanced Witness System
+  - [ ] Implement lunar cycle tracking for Moon Witnesses
+  - [ ] Add eclipse detection for Eclipse Witnesses
+  - [ ] Create seasonal variation system
+  - [ ] Implement Ancestral Memory mechanics
+  - [ ] Add personal power amplification
+
+- [ ] Develop Spiritual DNA Components
+  - [ ] Biorhythm calculation engine
+    - [ ] Physical cycle (23-day) tracking
+    - [ ] Emotional cycle (28-day) tracking
+    - [ ] Intellectual cycle (33-day) tracking
+  - [ ] Zodiacal integration
+    - [ ] Sign-specific trait amplification
+    - [ ] Element affinity system
+    - [ ] Season power cycles
+  - [ ] Human Design & Gene Keys
+    - [ ] Gate activation tracking
+    - [ ] Shadow-to-siddhi progression
+    - [ ] Transit power amplification
+  - [ ] Divination Systems
+    - [ ] Tarot integration for power-ups
+    - [ ] I Ching consultation system
+    - [ ] Special event windows
+  - [ ] Lunar Node System
+    - [ ] Node affinity calculation
+    - [ ] Evolution path guidance
+    - [ ] Transit ability triggers
 
 ### NFT Display
 - [ ] Implement collection preview
@@ -61,19 +97,50 @@
 - [ ] Create witness balance display
 - [ ] Implement shard collection system
 
-### Daily Raffle System
-- [ ] Create raffle mechanism
-- [ ] Implement shard distribution
-- [ ] Add participation tracking
-- [ ] Create winner selection system
-- [ ] Implement reward distribution
+### Living Shard System
+- [ ] Dynamic Trait Evolution
+  - [ ] Usage pattern tracking
+  - [ ] Trait specialization system
+  - [ ] History recording
+  - [ ] Power level calculation
 
-### Marketplace Features
+- [ ] DNA Splicing Mechanics
+  - [ ] Cross-species trait combination
+  - [ ] Hybrid ability generation
+  - [ ] Compatibility checking
+  - [ ] Evolution tracking
+
+- [ ] Environmental Imprint
+  - [ ] Usage environment detection
+  - [ ] Trait adaptation system
+  - [ ] Special ability unlocks
+  - [ ] Environment-specific bonuses
+
+- [ ] Perspective Resonance
+  - [ ] User interaction tracking
+  - [ ] Synergy calculation
+  - [ ] Temporary boost system
+  - [ ] Group ability unlocks
+
+### Marketplace & Community Features
 - [ ] Create NFT marketplace UI
-- [ ] Implement buying/selling functionality
-- [ ] Add witness token system
-- [ ] Create shard exchange mechanism
-- [ ] Implement transaction history
+  - [ ] Perspective NFT listings
+  - [ ] Shard trading interface
+  - [ ] Witness token display
+  - [ ] Evolution marketplace
+
+- [ ] Community Systems
+  - [ ] Group challenges interface
+  - [ ] Team competition system
+  - [ ] Governance portal
+  - [ ] Event creation tools
+
+- [ ] Transaction Systems
+  - [ ] NFT trading
+  - [ ] Shard exchange
+  - [ ] Witness token staking
+  - [ ] Reward distribution
+  - [ ] Transaction history
 
 ## Original UI Components
 - [x] Create PerspectiveCard with variants

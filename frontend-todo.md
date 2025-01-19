@@ -7,11 +7,57 @@
 - [x] Protected routes
 
 ## 2. User Dashboard Components
-- [ ] Witness Token Display
+- [ ] Spiritual DNA Components
   ```typescript
-  // Use get_user_tokens function
-  const { data: tokenBalance } = await supabase.rpc('get_user_tokens', {
-    user_id: user.id
+  // Biorhythm Calculation
+  const { data: biorhythms } = await supabase.rpc('calculate_biorhythms', {
+    user_id: user.id,
+    birth_date: userProfile.birth_date
+  })
+
+  // Zodiacal Powers
+  const { data: zodiacPowers } = await supabase.rpc('get_zodiac_powers', {
+    user_id: user.id,
+    current_transits: getCurrentTransits()
+  })
+
+  // Human Design & Gene Keys
+  const { data: designProfile } = await supabase.rpc('get_human_design_profile', {
+    user_id: user.id,
+    birth_data: userProfile.birth_data
+  })
+
+  // Divination Systems
+  const { data: divinationPowers } = await supabase.rpc('get_divination_powers', {
+    user_id: user.id,
+    celestial_events: getCurrentCelestialEvents()
+  })
+  ```
+
+- [ ] Living Shard Interface
+  ```typescript
+  // Dynamic Trait Evolution
+  const { data: evolvingTraits } = await supabase.rpc('get_evolving_traits', {
+    user_id: user.id,
+    usage_patterns: getUsagePatterns()
+  })
+
+  // DNA Splicing
+  const { data: spliceOptions } = await supabase.rpc('get_splice_combinations', {
+    perspective_id: currentPerspective.id,
+    available_traits: userTraits
+  })
+
+  // Environmental Imprint
+  const { data: environmentalBonus } = await supabase.rpc('calculate_environment_bonus', {
+    user_id: user.id,
+    current_environment: getCurrentEnvironment()
+  })
+
+  // Perspective Resonance
+  const { data: activeResonance } = await supabase.rpc('get_active_resonance', {
+    user_id: user.id,
+    nearby_perspectives: getNearbyPerspectives()
   })
   ```
 
@@ -37,7 +83,49 @@
   })
   ```
 
-## 3. Admin Dashboard Components
+## 3. Elemental Witness Components
+- [ ] Celestial Witness Interface
+  ```typescript
+  // Check Elemental Witness Status
+  const { data: elementalWitness } = await supabase.rpc('get_elemental_witness', {
+    user_id: user.id,
+    celestial_events: getCurrentCelestialEvents()
+  })
+  
+  // Ancestral Memory Interface
+  const { data: ancestralMemories } = await supabase
+    .from('ancestral_memories')
+    .select('*')
+    .eq('activation_status', 'available')
+    .filter('power_level', 'gte', userPowerLevel)
+
+  // Power Amplification
+  const { data: amplifiedPowers } = await supabase.rpc('calculate_power_amplification', {
+    user_id: user.id,
+    biorhythm: currentBiorhythm,
+    zodiac: currentZodiac,
+    nodes: currentNodes
+  })
+  ```
+
+- [ ] Governance Interface
+  ```typescript
+  // Proposal Creation
+  const { data: proposal } = await supabase.rpc('create_governance_proposal', {
+    title,
+    description,
+    voting_period,
+    witness_level_requirement
+  })
+
+  // Voting Interface
+  const { data: voteWeight } = await supabase.rpc('calculate_vote_weight', {
+    user_id: user.id,
+    proposal_id
+  })
+  ```
+
+## 4. Admin Dashboard Components
 - [ ] Content Management
   ```typescript
   // Fetch all posts with author info
@@ -72,7 +160,7 @@
     `)
   ```
 
-## 4. Navigation Implementation
+## 5. Navigation Implementation
 - [ ] Update nav-items.tsx to include:
   - User Dashboard route (/dashboard/user)
   - Admin Dashboard route (/dashboard/admin)
@@ -88,12 +176,12 @@
   )}
   ```
 
-## 5. Data Management
+## 6. Data Management
 - [ ] Implement optimistic updates for better UX
 - [ ] Add error handling and loading states
 - [ ] Set up real-time subscriptions for activity feed
 
-## 6. Testing
+## 7. Testing
 - [ ] Test role-based access control
 - [ ] Verify database policies
 - [ ] Test real-time updates

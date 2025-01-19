@@ -27,35 +27,80 @@ Transform the current landing page into a full-featured web application that ena
   - User information editing
   - Avatar customization
   - Preference settings
+  - Witness level display
+  - Validation history
+
 - Perspective Collection
   - NFT display grid
   - Detailed view for each perspective
   - Progress tracking
+  - Evolution path visualization
+  - Shard combination interface
+
+- Witness System
+  - Supreme Witness dashboard
+  - Validation interface
+  - Governance portal
+  - Power activation controls
+  - Achievement tracking
+
+- Shard Management
+  - Time-based collection interface
+  - Rarity-based organization
+  - Combination workshop
+  - Storage system
+  - Quick actions panel
+
 - Activity Center
   - Daily raffle participation
-  - Shard collection status
-  - Achievement tracking
+  - Witness selection tracking
+  - Community event participation
+  - Governance voting
+  - Achievement milestones
+
 - Transaction History
   - Purchase records
   - Raffle participation
   - Shard acquisitions
+  - Validation rewards
+  - Governance participation
 
-### 3. NFT System
+### 3. NFT & Witness Token System
 #### Requirements
 - NFTify Integration
   - Direct marketplace redirect to airship19.nftify.network
   - Collection preview in main app
   - NFT card displays
   - Owner verification
+  - Evolution tracking
+
 - Perspective Types
   - Unique attributes per animal
   - Rarity levels
   - Power scaling
-- Collection Display
-  - NFT card previews in app
+  - Evolution paths
+  - Shard requirements
+
+- Witness Token System
+  - Daily Supreme Witness selection
+  - Validation power distribution
+  - Governance weight calculation
+  - Reward multiplication
+  - Achievement tracking
+
+- Collection Management
+  - NFT card previews
   - Direct purchase links
   - Collection statistics
   - Owner dashboard
+  - Evolution progress
+
+- Shard System
+  - Time-based distribution
+  - Rarity tiers
+  - Combination mechanics
+  - Validation requirements
+  - Storage management
 
 ### 5. Blog Platform
 #### Requirements
@@ -178,12 +223,28 @@ Transform the current landing page into a full-featured web application that ena
 - Daily active users
 - Transaction volume
 - User retention rate
+- Witness participation rate
+- Shard collection completion
+- Evolution progress
 
 ### Community Metrics
 - Engagement rate
 - Content interaction
 - Support ticket resolution
 - Community growth
+- Governance participation
+- Validation accuracy
+- Event participation
+- Community contributions
+
+### Witness System Metrics
+- Daily selection participation
+- Validation throughput
+- Governance proposal quality
+- Community trust score
+- Power utilization rate
+- Achievement completion
+- Level progression speed
 
 ## Future Considerations
 
