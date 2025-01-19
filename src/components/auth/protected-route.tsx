@@ -43,7 +43,17 @@ export function ProtectedRoute({
         return
       }
     }
-  }, [user, loading, requiredRole, requiredPermissions, requireAllPermissions])
+  }, [
+    user,
+    loading,
+    requiredRole,
+    requiredPermissions,
+    requireAllPermissions,
+    hasAllPermissions,
+    hasAnyPermission,
+    hasRole,
+    router
+  ])
 
   if (loading) {
     return (

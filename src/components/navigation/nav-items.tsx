@@ -6,8 +6,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { routes, AppRoute, StaticRoutes } from '@/lib/routes'
-import { cn } from '@/lib/utils'
+import { routes, StaticRoutes } from '@/lib/routes'
 
 type StaticRoute = StaticRoutes[keyof StaticRoutes]
 type NavPathname = StaticRoute | '#'
@@ -21,10 +20,6 @@ interface NavLink {
   href: { pathname: NavPathname }
   label: string
   children?: NavLinkChild[]
-}
-
-const isStaticRoute = (pathname: string): pathname is StaticRoute => {
-  return Object.values(routes).includes(pathname as StaticRoute)
 }
 
 const createNavLink = (pathname: StaticRoute, label: string): NavLink => ({
@@ -57,7 +52,7 @@ const asHref = (href: { pathname: NavPathname }): { pathname: string } => {
 
 export function NavItems() {
   const { user, signOut } = useAuth()
-  const { isAdmin, isModerator } = useRBAC()
+  const { isAdmin } = useRBAC()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
   const router = useRouter()

@@ -1,11 +1,9 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { useWitnessSystem } from '@/hooks/useWitnessSystem'
 import { routes } from '@/lib/routes'
-import Link from 'next/link'
 
 interface QuickAction {
   id: string
@@ -16,7 +14,6 @@ interface QuickAction {
 }
 
 export function QuickActions() {
-  const router = useRouter()
   const { sendTokens } = useWitnessSystem()
 
   const quickActions: QuickAction[] = [
@@ -84,7 +81,7 @@ export function QuickActions() {
             message: 'Welcome to Airship! Here are some tokens to get you started.'
           })
           toast.success('Invitation sent successfully!')
-        } catch (error) {
+        } catch {
           toast.error('Failed to send invitation')
         }
       }

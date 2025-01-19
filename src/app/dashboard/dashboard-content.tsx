@@ -11,7 +11,7 @@ import { Post } from '@/lib/database.types'
 import { toast } from 'sonner'
 
 export function DashboardContent() {
-  const { user } = useAuth()
+  const { } = useAuth()
   const { hasPermission } = useRBAC()
   const { fetchPosts, deletePost, loading } = usePosts()
   const [posts, setPosts] = useState<Array<Post & { user: { email: string } }>>([])

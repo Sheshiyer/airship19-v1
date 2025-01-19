@@ -20,7 +20,7 @@ export function UserDashboardContent() {
   
   const { tokens, sendTokens } = useWitnessSystem()
   const { perspectives, loading: perspectivesLoading, activatePerspective } = usePerspectives()
-  const { currentRaffle, userEntries, calculateOdds, getTimeLeft, enterRaffle } = useRaffle()
+  const { userEntries, calculateOdds, getTimeLeft, enterRaffle } = useRaffle()
 
   // Update time left every second
   const [timeLeft, setTimeLeft] = useState(getTimeLeft())

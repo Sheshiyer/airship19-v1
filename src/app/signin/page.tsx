@@ -6,9 +6,6 @@ import { useAuth } from "@/context/auth-context";
 import { useRBAC } from "@/hooks/useRBAC";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
-import { FloatingNav } from "@/components/ui/floating-nav";
-import { cn } from "@/lib/utils";
 
 export default function SignIn() {
   const [formData, setFormData] = useState({
@@ -58,7 +55,7 @@ export default function SignIn() {
               <div>
                 <h2 className="text-3xl font-bold text-white">Sign in to your account</h2>
                 <p className="mt-2 text-sm text-neutral-300">
-                  Don't have an account?{" "}
+                  Don&apos;t have an account?{" "}
                   <Link href="/signup" className="text-blue-500 hover:text-blue-400 transition-colors">
                     Sign up
                   </Link>

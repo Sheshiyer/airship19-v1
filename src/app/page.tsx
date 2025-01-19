@@ -2,7 +2,6 @@
 
 import { BackgroundBeams } from "../components/ui/background-beams";
 import { TypewriterEffect } from "../components/ui/typewriter-effect";
-import { FloatingNav } from "../components/ui/floating-nav";
 import { PerspectiveCard } from "../components/ui/perspective-card";
 import { TracingBeam } from "../components/ui/tracing-beam";
 import { EvervaultCard } from "../components/ui/evervault-card";
@@ -12,44 +11,14 @@ import { Meteors } from "../components/ui/meteors";
 import { BentoGrid } from "../components/ui/bento-grid";
 import { BlogPreview } from "../components/ui/blog-preview";
 import { CommunityShowcase } from "../components/ui/community-showcase";
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import Image from "next/image";
-import { cn } from "../lib/utils";
 import { WalletModal } from "../components/ui/wallet-modal";
-import { WalletStatus } from "../components/ui/wallet-status";
-import { useWallet } from "../context/wallet-context";
 import { Footer } from "../components/ui/footer";
-import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [activePerspective, setActivePerspective] = useState("wisp");
   const [isWalletModalOpen, setIsWalletModalOpen] = useState(false);
-  const { isConnected } = useWallet();
-  const router = useRouter();
-
-  const handleAuth = useCallback((mode: "login" | "signup" | "wallet") => {
-    if (mode === "wallet") {
-      setIsWalletModalOpen(true);
-    } else {
-      router.push("/signin");
-    }
-  }, [router]);
-
-  const mainNavItems = [
-    { id: "home", label: "Home" },
-    { id: "perspectives", label: "Perspectives" },
-    { id: "features", label: "Features" },
-    { id: "timeline", label: "Timeline" },
-    { id: "community", label: "Community" },
-    { id: "blog", label: "Blog" },
-    { id: "faq", label: "FAQ" }
-  ];
-
-  const actionNavItems = [
-    { id: "signin", label: "Sign In", isAuth: true },
-    { id: "connect-wallet", label: "Connect Wallet", isAuth: true, isPrimary: true },
-    { id: "marketplace", label: "NFTify", href: "https://nftify.network/marketplace" }
-  ];
 
   const perspectives = [
     {
@@ -322,12 +291,6 @@ export default function Home() {
     }
   ];
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-black via-indigo-950/30 to-fuchsia-950/20 antialiased text-gray-100 relative overflow-hidden">

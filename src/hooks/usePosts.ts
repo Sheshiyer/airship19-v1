@@ -1,9 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { createClient } from '@/lib/supabase'
 import { Database, Post } from '@/lib/database.types'
-import { useAuth } from '@/context/auth-context'
 
 type PostWithUser = Post & {
   user: {
@@ -96,7 +94,7 @@ export function usePosts() {
     return updatedPost
   }
 
-  const deletePost = async (id: string) => {
+  const deletePost = async (_id: string) => {
     setLoading(true)
     await new Promise(resolve => setTimeout(resolve, 500))
     setLoading(false)

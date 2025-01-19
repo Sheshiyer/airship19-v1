@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react'
-import { useAuth } from '@/context/auth-context'
-import { createClient } from '@/lib/supabase'
+import { useState } from 'react'
 
 interface RaffleEntry {
   id: string
@@ -61,7 +59,7 @@ export function useRaffle() {
 
   const getTimeLeft = () => "23:59:59" // Always show time remaining
 
-  const enterRaffle = async (tokensToUse: number) => {
+  const enterRaffle = async (_tokensToUse: number) => {
     return { success: true, error: null }
   }
 

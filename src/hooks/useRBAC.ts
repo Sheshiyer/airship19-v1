@@ -1,8 +1,6 @@
 'use client'
 
-import { useAuth } from '@/context/auth-context'
-import { createClient } from '@/lib/supabase'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 type UserRole = 'admin' | 'moderator' | 'user'
 
@@ -16,10 +14,10 @@ export function useRBAC() {
   const isUser = true // Everyone has basic user privileges
 
   // For development, all permissions are granted
-  const hasPermission = (permission: string) => true
-  const hasRole = (role: UserRole) => true
-  const hasAnyPermission = (permissions: string[]) => true
-  const hasAllPermissions = (permissions: string[]) => true
+  const hasPermission = (_permission: string) => true
+  const hasRole = (_role: UserRole) => true
+  const hasAnyPermission = (_permissions: string[]) => true
+  const hasAllPermissions = (_permissions: string[]) => true
 
   return {
     role,

@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { useAuth } from '@/context/auth-context'
 import { createClient } from '@/lib/supabase'
 
 export interface AnimalPerspective {
@@ -61,7 +60,7 @@ export function usePerspectives() {
   }
 
   // For development, activation always succeeds
-  const activatePerspective = async (perspectiveId: string) => {
+  const activatePerspective = async (_perspectiveId: string) => {
     return { 
       success: true,
       error: null

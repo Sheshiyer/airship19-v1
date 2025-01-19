@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react'
-import { useAuth } from '@/context/auth-context'
-import { createClient } from '@/lib/supabase'
+import { useState } from 'react'
 
 interface WitnessTokens {
   amount: number
@@ -23,11 +21,11 @@ export function useWitnessSystem() {
   })
 
   // Mock token operations for development
-  const sendTokens = async ({ recipientEmail, amount, message }: TokenTransaction) => {
+  const sendTokens = async ({ recipientEmail: _recipientEmail, amount: _amount, message: _message }: TokenTransaction) => {
     return { success: true, error: null }
   }
 
-  const useTokensForRaffle = async (amount: number, raffleId: string) => {
+  const useTokensForRaffle = async (_amount: number, _raffleId: string) => {
     return { success: true, error: null }
   }
 

@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
 import { toast } from 'sonner'
 
 export default function SettingsPage() {
@@ -125,7 +124,7 @@ export default function SettingsPage() {
             <div className="flex items-center justify-between p-3 bg-black/30 rounded-lg">
               <div>
                 <h3 className="text-sm font-medium text-white">Activity Status</h3>
-                <p className="text-xs text-neutral-400">Show when you're active</p>
+                <p className="text-xs text-neutral-400">Show when you&apos;re active</p>
               </div>
               <button className="w-12 h-6 bg-white/10 rounded-full relative">
                 <span className="absolute left-1 top-1 w-4 h-4 bg-neutral-400 rounded-full" />

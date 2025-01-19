@@ -9,7 +9,7 @@ import { motion } from 'framer-motion'
 import { routes } from '@/lib/routes'
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const { user, signOut } = useAuth()
+  const { signOut } = useAuth()
   const { role, loading: rbacLoading } = useRBAC()
   const pathname = usePathname()
 

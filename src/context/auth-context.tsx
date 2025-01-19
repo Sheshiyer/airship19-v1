@@ -1,8 +1,7 @@
 'use client'
 
-import { createClient } from '@/lib/supabase'
 import { User } from '@supabase/supabase-js'
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 interface AuthContextType {
@@ -28,15 +27,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     role: 'authenticated'
   } as User)
   const [loading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [error] = useState<string | null>(null)
   const router = useRouter()
 
   // Development versions of auth functions
-  const signIn = async (email: string, password: string): Promise<boolean> => {
+  const signIn = async (_email: string, _password: string): Promise<boolean> => {
     return true
   }
 
-  const signUp = async (email: string, password: string): Promise<boolean> => {
+  const signUp = async (_email: string, _password: string): Promise<boolean> => {
     return true
   }
 

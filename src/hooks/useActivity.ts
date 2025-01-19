@@ -1,10 +1,13 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { createClient } from '@/lib/supabase'
-import { Database } from '@/lib/database.types'
+import { useState } from 'react'
 
-type ActivityLog = Database['public']['Tables']['activity_logs']['Row']
+interface ActivityDetails {
+  amount?: number
+  message?: string
+  status?: string
+  [key: string]: unknown
+}
 
 export interface Activity {
   id: string
@@ -15,12 +18,12 @@ export interface Activity {
   }
   target?: string
   timestamp: string
-  details?: any
+  details?: ActivityDetails
 }
 
 export function useActivity() {
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [loading] = useState(false)
+  const [error] = useState<string | null>(null)
 
   // Mock activities for development
   const activities: Activity[] = [

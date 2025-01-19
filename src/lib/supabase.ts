@@ -1,5 +1,10 @@
 import { createBrowserClient, createServerClient } from '@supabase/ssr'
 
+interface CookieOptions {
+  maxAge?: number
+  path?: string
+}
+
 export const createClient = () => {
   return createBrowserClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -22,7 +27,7 @@ export const createServerSupabaseClient = () => {
             .find((row) => row.startsWith(`${name}=`))
             ?.split('=')[1]
         },
-        set(name: string, value: string, options: any) {
+        set(name: string, value: string, options: CookieOptions) {
           let cookie = `${name}=${value}`
           if (options.maxAge) {
             cookie += `; Max-Age=${options.maxAge}`
@@ -32,7 +37,7 @@ export const createServerSupabaseClient = () => {
           }
           document.cookie = cookie
         },
-        remove(name: string, options: any) {
+        remove(name: string, options: CookieOptions) {
           document.cookie = `${name}=; Max-Age=0${options?.path ? `; Path=${options.path}` : ''}`
         },
       },
